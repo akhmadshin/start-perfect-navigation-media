@@ -1,0 +1,339 @@
+{
+  "id": 1,
+  "attributes": {
+    "title": "Three ways to achieve instant navigation",
+    "description": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "Links in next.js feels laggy if the user has slow internet / server response with delays / serverless function hits a cold start. It ruins UX. And most likely, users will click fewer links because of those delays. If every link always opened instantly, users would be more active on the website. Fast navigation improves UX, user engagement, and positively impacts SEO. Let's look at three ways to achieve instant navigation."
+          }
+        ]
+      }
+    ],
+    "slug": "3-ways-to-achieve-instant-navigation",
+    "sections": [
+      {
+        "id": 1,
+        "__component": "sections.rich-text",
+        "content": [
+          {
+            "type": "heading",
+            "children": [
+              {
+                "type": "text",
+                "text": "Prefetch"
+              }
+            ],
+            "level": 2
+          },
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "text": "Prefetching preloads the route and its data in the background before the user visits it. When the next/link component is used, it's enabled by default. It's very effective and easy to use. Prefetch, however, has some drawbacks."
+              }
+            ]
+          },
+          {
+            "type": "list",
+            "format": "unordered",
+            "children": [
+              {
+                "type": "list-item",
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "Prefetch wastes a lot of user resources, like battery life and internet traffic "
+                  }
+                ]
+              },
+              {
+                "type": "list-item",
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "The server receives numerous redundant requests. For example, a user can prefetch a whole list of products/articles and never open any of them. This increases the load on the server."
+                  }
+                ]
+              },
+              {
+                "type": "list-item",
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "If the user clicks a link before prefetch is complete, it will open with a delay."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "text": "Usually, prefetch works in two modes:"
+              }
+            ]
+          },
+          {
+            "type": "list",
+            "format": "ordered",
+            "children": [
+              {
+                "type": "list-item",
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "Prefetch all visible links. If a link is visible in the user's viewport, it will be prefetched. If your website has a lot of internal links, I don't recommend using it."
+                  }
+                ]
+              },
+              {
+                "type": "list-item",
+                "children": [
+                  {
+                    "type": "text",
+                    "text": "Prefetch only hovered links. Users who can hover links typically possess unlimited internet access and a robust battery, making them less susceptible to unnecessary prefetching. Furthermore, hovering a link increases the likelihood of its click, which reduces the number of unnecessary requests sent. However, mobile users are unable to hover, which means they will open links with delay."
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "__component": "sections.rich-text",
+        "content": [
+          {
+            "type": "heading",
+            "children": [
+              {
+                "type": "text",
+                "text": "Prerender links with A.I"
+              }
+            ],
+            "level": 2
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "__component": "sections.you-tube",
+        "content": "{\"url\":\"https://youtu.be/bSua9vMdrNM?si=xhWJEoxTNPg095W9\",\"title\":\"From fast loading to instant loading\",\"thumbnail\":\"https://i.ytimg.com/vi/bSua9vMdrNM/hqdefault.jpg\",\"mime\":\"video/youtube\",\"rawData\":{\"title\":\"From fast loading to instant loading\",\"author_name\":\"Chrome for Developers\",\"author_url\":\"https://www.youtube.com/@ChromeDevs\",\"type\":\"video\",\"height\":113,\"width\":200,\"version\":\"1.0\",\"provider_name\":\"YouTube\",\"provider_url\":\"https://www.youtube.com/\",\"thumbnail_height\":360,\"thumbnail_width\":480,\"thumbnail_url\":\"https://i.ytimg.com/vi/bSua9vMdrNM/hqdefault.jpg\",\"html\":\"<iframe width=\\\"200\\\" height=\\\"113\\\" src=\\\"https://www.youtube.com/embed/bSua9vMdrNM?feature=oembed\\\" frameborder=\\\"0\\\" allow=\\\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\\\" referrerpolicy=\\\"strict-origin-when-cross-origin\\\" allowfullscreen title=\\\"From fast loading to instant loading\\\"></iframe>\"}}"
+      },
+      {
+        "id": 3,
+        "__component": "sections.rich-text",
+        "content": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "text": "Here's a new API, currently available only in chromium browsers. Think of it as a hint for the browser, indicating which links can be prerendered. If the browser decides to prerender one of them, that link will be opened in an invisible tab and rendered. The user will instantly see the prerendered version after clicking that link."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "__component": "sections.code",
+        "content": "<script type=\"speculationrules\">\n\t{\n    \"prerender\": [\n      {\n        \"urls\": [\"next.html\", \"next2.html\"]\n      }\n    ]\n  }\n</script>",
+        "description": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "text": "Like that, you can send list of links that can be prerendered"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "__component": "sections.code",
+        "content": "<script type=\"speculationrules\">\n\t{\n    \"prerender\": [{\n      \"where\": {\n        \"and\": [\n          { \"href_matches\": \"/*\" },\n          { \"not\": {\"href_matches\": \"/wp-admin\"}},\n          { \"not\": {\"href_matches\": \"/*\\\\?*(^|&)add-to-cart=*\"}},\n          { \"not\": {\"selector_matches\": \".do-not-prerender\"}},\n          { \"not\": {\"selector_matches\": \"[rel~=nofollow]\"}}\n        ]\n      }\n    }]\n  }\n</script>",
+        "description": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "text": "or use more complicated logic"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "__component": "sections.rich-text",
+        "content": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "text": "It has the same drawbacks as prefetch and can waste even more user resources because render operations are expensive. A.I. can reduce the number of prerendered pages that never opened. But from time to time, useless prerenders will happen anyway."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "__component": "sections.rich-text",
+        "content": [
+          {
+            "type": "heading",
+            "children": [
+              {
+                "type": "text",
+                "text": "Optimistic navigation"
+              }
+            ],
+            "level": 2
+          },
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "text": "Instead of wasting user resources on prefetching or prerendering, this optimization creates the illusion of instant navigation. When navigation happens, a page immediately displays with demo data while the main data is loading. Ideally, that demo data should have enough content to display the first screen of the page. Covering the first screen with demo data gives the impression of instant navigation."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "__component": "sections.code",
+        "content": "// pages/index.tsx\nexport const getServerSideProps = () => {\n  const articles = [{\n    thumbnail: '...',\n    title: '...',\n    description: '...',\n  }];\n  return {\n    props: articles\n  };\n}\n",
+        "description": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "text": "Where do I get this demo data from? I'm going to use that website as a reference. When the home page is open, it loads with an array of objects. Every object contains a thumbnail, title, and description of the article. The home page uses that object to display article cards. We will use that object as demo data when the article page opens."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "__component": "sections.code",
+        "content": "// pages/blog/[slug]/index.tsx\nexport const getServerSideProps = () => {\n  const article = {\n    thumbnail: '...',\n    title: '...',\n    description: '...',\n    content: '...',\n  };\n  return {\n    props: article\n  };\n}",
+        "description": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "text": "Upon opening the article page, the getServerSideProps function returns an object that includes a thumbnail, title, description, and content. In this scenario, the demo data will display the entire article, excluding the content. It will cover the user's first screen and create the illusion of instantaneous navigation."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "__component": "sections.rich-text",
+        "content": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "text": "The idea behind optimistic navigation is very simple, but it's challenging to implement in modern meta-frameworks. I'll explain how to implement optimistic navigation in the next article. You can see optimistic navigation in action on that website. Turn off optimistic navigation toggler in the header to see how next.js works by default."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "__component": "sections.rich-text",
+        "content": [
+          {
+            "type": "heading",
+            "children": [
+              {
+                "type": "text",
+                "text": "Summary"
+              }
+            ],
+            "level": 2
+          },
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "text": "Instantaneous navigation is a challenging task, pays off with satisfied users. Here's 3 way to achieve it. Advantages and disadvantages of each way displayed bellow."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "__component": "sections.code",
+        "content": "|         Advantages         | Optimistic navigation | Prerender | Prefetch |\n|----------------------------|-----------------------|-----------|----------|\n| No waste of user resources | +                     | -         | -        |\n| No extra server load       | +                     | +/-       | -        |\n| Permanently instant        | +                     | -         | -        |\n| Easy to implement          | -                     | +/-       | +        |",
+        "description": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "text": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "__component": "sections.rich-text",
+        "content": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "text": "As you can see from the table above, optimistc navigation have some advantages over prefetchin and prerendering. With well-tuned optimistic navigation, the server can send responses in 600-800 ms, and the user will not notice network lag at all. This gives a good headroom for the load balancer. Effect of that optimisation will be especially noticable on big applications with a lot of links, and a lot of clients."
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "thumbnail": {
+      "data": {
+        "id": 10,
+        "attributes": {
+          "thumbhash": "qggGFIJvk3eVZ3lploiwXQrtpA==",
+          "url": "/uploads/debby_hudson_S_To4zi_Y5g7_A_unsplash_0cccb7cfbb.jpg",
+          "alternativeText": null,
+          "height": 1080,
+          "width": 1920
+        }
+      }
+    },
+    "seo": {
+      "id": 1,
+      "metaTitle": "Three ways to achieve instant navigation",
+      "metaDescription": "Prefetching, prerendering, and optimistic navigation are three different ways to achieve rapid navigation, each with its advantages and disadvantages."
+    }
+  }
+}
