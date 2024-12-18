@@ -5,7 +5,7 @@ import axios from 'redaxios';
 
 
 export const fetchPost = async (id: number) => {
-  const post = await axios.get(`${import.meta.env.VITE_SITE_ORIGIN}/api/posts/${id}`) as any
+  const post = await axios.get(`${import.meta.env.VITE_SITE_ORIGIN || 'http://localhost:3000'}/api/posts/${id}`) as any
   return post.data;
 }
 

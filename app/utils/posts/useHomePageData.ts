@@ -2,7 +2,7 @@ import { queryOptions, useQuery } from '@tanstack/react-query';
 import axios from 'redaxios';
 
 const fetchPosts = async () => {
-  const post = await axios.get(`${import.meta.env.VITE_SITE_ORIGIN}/api/posts`) as any
+  const post = await axios.get(`${import.meta.env.VITE_SITE_ORIGIN || 'http://localhost:3000'}/api/posts`) as any
   return post;
 }
 
