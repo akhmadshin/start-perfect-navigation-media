@@ -90,7 +90,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <html className="scroll-pt-16">
+    <html className="scroll-smooth scroll-pt-16">
       <head>
         <Meta />
       </head>
