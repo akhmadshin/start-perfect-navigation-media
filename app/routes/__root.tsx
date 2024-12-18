@@ -13,6 +13,7 @@ import ytEmbed from '@/styles/yt-embed.css?url'
 import { seo } from '@/utils/seo'
 import { Layout } from '@/components/Layout';
 import { useEffect } from 'react';
+import { useTransitionRouterEvents } from '@/rich-view-transitions';
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient
@@ -78,6 +79,8 @@ function RootComponent() {
 function RootDocument({ children }: { children: React.ReactNode }) {
   const router = useRouter()
 
+  useTransitionRouterEvents();
+
   useEffect(() => {
     try {
       Promise.all([
@@ -90,7 +93,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <html className="scroll-smooth scroll-pt-16">
+    <html className="scroll-pt-16">
       <head>
         <Meta />
       </head>
