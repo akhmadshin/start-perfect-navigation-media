@@ -24,7 +24,7 @@ export const Link: React.FC<PropsWithChildren<Props>> = ({ children, onClick, pl
       attributeName: 'src',
       attributeValue: src,
     })
-    // router.navigate({ href: props.href });
+    router.navigate({ href: props.href });
   }
   return (
     <TanstackLink
