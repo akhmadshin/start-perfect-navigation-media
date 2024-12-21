@@ -1,5 +1,5 @@
-import { getElementSelector } from './get-element-selector';
-import { cleanUpTransition } from './clean-up-transition';
+import { getElementSelector } from './utils/get-element-selector';
+import { cleanUpTransition } from './utils/clean-up-transition';
 
 export const handleRouteChangeComplete = (routerKey?: string) => {
   const key = routerKey ?? 'initial';

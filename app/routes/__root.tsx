@@ -15,6 +15,7 @@ import { Layout } from '@/components/Layout';
 import { useEffect } from 'react';
 import { useTransitionRouterEvents } from '@/rich-view-transitions';
 import { handleHistoryTransitionStarted } from '@/rich-view-transitions/handle-history-transition-started';
+import { handleRouteChangeComplete } from '@/rich-view-transitions/handle-route-change-complete';
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient
@@ -82,6 +83,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   useTransitionRouterEvents();
 
   useEffect(() => {
+    router.subscribe('onLoad', () => {
+      handleRouteChangeComplete(router.history.location.state.key);
+    })
+
     router.history.subscribe((prop) => {
       if (prop.action.type === 'POP') {
         handleHistoryTransitionStarted(prop.location.state.key);
