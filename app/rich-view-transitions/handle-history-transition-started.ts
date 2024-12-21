@@ -1,7 +1,7 @@
 import { cleanUpTransition } from './utils/clean-up-transition';
 
-export const handleHistoryTransitionStarted = (futureKey: string) => {
-  const routerKey = window.__NRVT_routerKey!;
+export const handleHistoryTransitionStarted = (futureKey: string = 'initial') => {
+  const routerKey = window.__NRVT_routerKey ?? 'initial';
 
   const bffImgSelector = sessionStorage.getItem(`__NRVT_view_transition_image_selector_${routerKey}-${futureKey}`) || '';
 

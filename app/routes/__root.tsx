@@ -84,7 +84,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     router.history.subscribe((prop) => {
       if (prop.action.type === 'POP') {
-        handleHistoryTransitionStarted(prop.location.state.key || '');
+        handleHistoryTransitionStarted(prop.location.state.key);
       }
     })
   }, []);
