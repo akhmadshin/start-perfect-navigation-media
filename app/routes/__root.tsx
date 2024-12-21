@@ -13,7 +13,6 @@ import ytEmbed from '@/styles/yt-embed.css?url'
 import { seo } from '@/utils/seo'
 import { Layout } from '@/components/Layout';
 import { useEffect } from 'react';
-import { useTransitionRouterEvents } from '@/rich-view-transitions';
 import { handleHistoryTransitionStarted } from '@/rich-view-transitions/handle-history-transition-started';
 import { handleRouteChangeComplete } from '@/rich-view-transitions/handle-route-change-complete';
 
@@ -80,7 +79,6 @@ function RootComponent() {
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   const router = useRouter()
-  useTransitionRouterEvents();
 
   useEffect(() => {
     router.subscribe('onLoad', () => {
