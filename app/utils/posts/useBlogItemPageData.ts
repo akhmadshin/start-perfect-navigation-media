@@ -3,14 +3,13 @@ import { queryOptions, useQuery } from '@tanstack/react-query';
 import { BlogItemPageProps } from '@/types/pages/blogItemPage';
 import axios from 'redaxios';
 
-
 export const fetchPost = async (id: number) => {
   const post = await axios.get(`${import.meta.env.VITE_SITE_ORIGIN || 'http://localhost:3000'}/api/posts/${id}`) as any
   return post.data;
 }
 
 export const postQueryOptions = (postId: number, placeholderData?: any) =>
-  queryOptions({
+  queryOptions<BlogItemPageProps, Error & { isNotFound: boolean }>({
     queryKey: ['post', postId],
     retry: 0,
     staleTime: Infinity,
@@ -21,7 +20,7 @@ export const postQueryOptions = (postId: number, placeholderData?: any) =>
 export const useBlogItemPageData = () => {
   const { postId } = Route.useParams()
   const slugInt = parseInt(postId.match(/\d+/)![0]) ?? 0;
-  const queryData = useQuery<BlogItemPageProps>(
+  const queryData = useQuery(
     postQueryOptions(
       slugInt,
       typeof window !== 'undefined' ? window.placeholderData : undefined,

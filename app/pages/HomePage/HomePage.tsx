@@ -4,6 +4,7 @@ import { Container } from '@/components/Container';
 import { ArticleList } from '@/components/ArticleList';
 import { Page } from '@/components/Page';
 import { useHomePageData } from '@/utils/posts/useHomePageData';
+import { Meta } from '@/components/Meta';
 
 const title = 'Dev blog with fastest navigation possible.';
 const description = 'That website demonstrates consistently fast navigation via optimistic UI. Navigation stays responsive regardless of the Internet speed or CPU performance.';
@@ -13,6 +14,9 @@ export const HomePage = () => {
 
   return (
     <Page>
+      <Meta
+        title="Posts"
+      />
       <Container>
         {/*<Meta*/}
         {/*  title={title}*/}

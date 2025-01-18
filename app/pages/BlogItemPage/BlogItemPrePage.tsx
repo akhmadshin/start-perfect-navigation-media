@@ -8,6 +8,7 @@ import { BlogItemPostPageLoader } from './BlogItemPostPageLoader';
 import { useBlogItemPageData } from '@/utils/posts/useBlogItemPageData';
 import { Separator } from '@/components/ui/separator';
 import { ArticleAnchors } from '@/components/ArticleAnchors/ArticleAnchors';
+import { Meta } from '@/components/Meta';
 
 export const BlogItemPrePage: ParentComponent = ({ children }) => {
   const { data: article, isLoading, isFetching } = useBlogItemPageData();
@@ -27,18 +28,20 @@ export const BlogItemPrePage: ParentComponent = ({ children }) => {
 
   const articleAttributes = article.attributes || {};
   const coverAttributes = articleAttributes.thumbnail.data!.attributes || {};
-  const {title, description, headings, previewContent } = articleAttributes;
+  const {title, description, headings, previewContent, slug, seo } = articleAttributes;
 
   return (
     <>
-      {/*<Meta*/}
-      {/*  isArticle*/}
-      {/*  title={seo?.metaTitle}*/}
-      {/*  description={seo?.metaDescription}*/}
-      {/*  canonical={`/blog/${slug}/`}*/}
-      {/*  type="article"*/}
-      {/*  image={coverAttributes}*/}
-      {/*/>*/}
+      {seo && (
+        <Meta
+          isArticle
+          title={seo.title}
+          description={seo.description}
+          canonical={`/blog/${slug}/`}
+          type="article"
+          image={coverAttributes}
+        />
+      )}
       <article className="flex flex-col dark:text-gray-50">
         <Container>
           <div className="flex flex-col ">

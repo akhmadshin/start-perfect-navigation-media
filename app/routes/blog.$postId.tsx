@@ -6,45 +6,31 @@ import { postQueryOptions, useBlogItemPageData } from '@/utils/posts/useBlogItem
 
 const NotFoundRouteComponent = () => <NotFound>Post not found</NotFound>
 
-const BlogItemErrorComponent = ({ error }: { error: Error}) => {
-  return <ErrorComponent error={error} />
-}
-
 export const Route = createFileRoute('/blog/$postId')({
   loader: async ({ params: { postId }, context, cause, route }) => {
-    if (cause !== 'preload' && typeof window !== 'undefined') {
-      return;
-    }
     const slugInt = parseInt(postId.match(/\d+/)![0]) ?? 0;
+    if (cause === 'preload' || typeof window === 'undefined') {
+      const data = await context.queryClient.ensureQueryData(
+        postQueryOptions(slugInt),
+      )
 
-    const data = await context.queryClient.ensureQueryData(
-      postQueryOptions(slugInt),
-    )
-
-    return {
-      title: data.title,
+      return {
+        title: data.attributes.title,
+      }
     }
   },
-  head: ({ loaderData }) => ({
-    meta: loaderData ? [{ title: loaderData.title }] : undefined,
-  }),
-  errorComponent: BlogItemErrorComponent,
+  errorComponent: ErrorComponent,
   notFoundComponent: NotFoundRouteComponent,
   component: PostComponent,
 })
 
 function PostComponent() {
-  const { data, error } = useBlogItemPageData();
-  if ((error as unknown as { isNotFound: boolean })?.isNotFound) {
-    return <NotFoundRouteComponent />
-  }
+  const { error } = useBlogItemPageData();
   if (error) {
-    return <BlogItemErrorComponent error={error} />
-  }
-
-  if (!data) {
-    // Suspense loader
-    return <div>Loading...</div>
+    if (error.isNotFound) {
+      return <NotFoundRouteComponent />
+    }
+    return <ErrorComponent error={error} />
   }
 
   return (
