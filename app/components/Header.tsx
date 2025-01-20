@@ -2,10 +2,10 @@ import React from 'react';
 
 import { Link } from '@/components/Link';
 import { Container } from '@/components/Container';
-import { ThemeSwitch } from '@/components/ThemeSwitch';
 import { cn } from '@/lib/utils';
 import { Logo } from '@/components/Logo';
 import { useRouterState } from '@tanstack/react-router';
+import { GithubIcon } from 'lucide-react';
 
 export function Header() {
   const navClassName = 'flex items-center gap-4 md:gap-6 lg:gap-12';
@@ -36,7 +36,11 @@ export function Header() {
 
           </div>
           <div className={navClassName}>
-            <ThemeSwitch />
+            <a href="https://github.com/akhmadshin/tanstack-optimistic-navigation-starter" target="_blank">
+              <div>
+                <GithubIcon className="h-[1.2rem] w-[1.2rem] inline"/>
+              </div>
+            </a>
           </div>
         </div>
       </Container>
