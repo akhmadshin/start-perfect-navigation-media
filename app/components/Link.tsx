@@ -1,18 +1,19 @@
 import React, { PropsWithChildren } from 'react';
 import { Link as TanstackLink, LinkProps } from '@tanstack/react-router';
 import { handleTransitionStarted } from '@/rich-view-transitions/handle-transition-started';
+import { usePlaceholderDataStore } from '@/stores/placeholderDataStore';
 
 type Props = LinkProps & React.AnchorHTMLAttributes<HTMLAnchorElement> & {
   placeholderData?: object;
 }
 export const Link: React.FC<PropsWithChildren<Props>> = ({ children, onClick, placeholderData, ...props }) => {
+  const setPlaceholderData = usePlaceholderDataStore(state => state.setPlaceholderData);
   const handleClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
-    // e.preventDefault();
-
     if (onClick) {
       onClick(e);
     }
-    window.placeholderData = placeholderData;
+
+    setPlaceholderData(placeholderData);
 
     // Find an image that should start transitioning. Feel free to change that code.
     const transitionImg = e.currentTarget.querySelector<HTMLImageElement>('.transitionable-img') || document.querySelector('#transition-img');

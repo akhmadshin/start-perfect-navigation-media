@@ -3,9 +3,10 @@ import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carouse
 import { ArticleCard } from '@/components/ArticleCard';
 import { cn } from '@/lib/utils';
 import { useBlogItemPageData } from '@/utils/posts/useBlogItemPageData';
+import { Route } from '@/routes/blog.$postId';
 
 export const BlogItemCarousel = () => {
-  const { data: article } = useBlogItemPageData();
+  const { data: article } = useBlogItemPageData(Route);
   const articleAttributes = article?.attributes || undefined;
   const relatedArticles = articleAttributes ? articleAttributes.relatedArticles : undefined;
 

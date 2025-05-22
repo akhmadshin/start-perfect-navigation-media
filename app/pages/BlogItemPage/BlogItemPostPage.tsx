@@ -7,9 +7,10 @@ import { useBlogItemPageData } from '@/utils/posts/useBlogItemPageData';
 import { BlogItemCarousel } from '@/pages/BlogItemPage/BlogItemCarousel';
 import { Container } from '@/components/Container';
 import { RichText } from '@/components/RichText';
+import { Route } from '@/routes/blog.$postId';
 
 export const BlogItemPostPage = () => {
-  const { data: article, isLoading, isFetching } = useBlogItemPageData();
+  const { data: article, isLoading, isFetching } = useBlogItemPageData(Route);
 
   if (isLoading || isFetching) {
     return <BlogItemPostPageLoader />;

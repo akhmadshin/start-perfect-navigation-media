@@ -6,7 +6,7 @@ const fetchPosts = async () => {
   return post;
 }
 
-export const postsQueryOptions = () =>
+export const homePageQueryOptions = () =>
   queryOptions({
     queryKey: ['posts'],
     retry: 0,
@@ -16,7 +16,7 @@ export const postsQueryOptions = () =>
 
 export const useHomePageData = () => {
   const queryData = useQuery(
-    postsQueryOptions(),
+    homePageQueryOptions(),
   );
   return queryData;
 }

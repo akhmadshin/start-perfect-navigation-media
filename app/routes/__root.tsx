@@ -11,7 +11,6 @@ import { NotFound } from '@/components/NotFound'
 import appCss from '@/styles/app.css?url'
 import ytEmbed from '@/styles/yt-embed.css?url'
 import viewTransitions from '@/styles/view-transitions.css?url'
-import { seo } from '@/utils/seo'
 import { Layout } from '@/components/Layout';
 import { useEffect } from 'react';
 import { handleHistoryTransitionStarted } from '@/rich-view-transitions/handle-history-transition-started';
@@ -72,6 +71,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     router.subscribe('onLoad', () => {
       handleRouteChangeComplete(router.history.location.state.key);
     })
+    router.subscribe('onBeforeNavigate', (event) => {
+      console.log('event.pathChanged = ', event.pathChanged);
+      console.log('event.hrefChanged = ', event.hrefChanged);
+      console.log('event.fromLocation = ', event.fromLocation);
+      console.log('event.toLocation = ', event.toLocation);
+    })
 
     router.history.subscribe((prop) => {
       if (prop.action.type === 'POP') {
@@ -81,14 +86,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    try {
-      Promise.all([
-        router.loadRouteChunk(router.routesByPath['/']),
-        router.loadRouteChunk(router.routesByPath['/blog/$postId']),
-      ])
-    } catch (err) {
-      // Failed to preload route chunk
-    }
+    Promise.all([
+      router.loadRouteChunk(router.routesByPath['/']),
+      router.loadRouteChunk(router.routesByPath['/blog/$postId']),
+    ]).catch((err) => new Error(err));
   }, []);
 
   return (

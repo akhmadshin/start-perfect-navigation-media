@@ -2,24 +2,26 @@ import React, { useRef } from 'react';
 import { Container } from '@/components/Container';
 import { Image } from '@/components/image';
 import { RichText } from '@/components/RichText';
-import { SkeletonBlogItemPage } from '@/pages/BlogItemPage/SkeletonBlogItemPage';
 import { ParentComponent } from '@/types/general';
-import { BlogItemPostPageLoader } from './BlogItemPostPageLoader';
 import { useBlogItemPageData } from '@/utils/posts/useBlogItemPageData';
 import { Separator } from '@/components/ui/separator';
-import { ArticleAnchors } from '@/components/ArticleAnchors/ArticleAnchors';
+import { ArticleAnchors } from '@/components/ArticleAnchors';
 import { Meta } from '@/components/Meta';
 
+import { BlogItemPrePageLoader } from './BlogItemPrePageLoader';
+import { BlogItemPostPageLoader } from './BlogItemPostPageLoader';
+import { Route } from '@/routes/blog.$postId';
+
 export const BlogItemPrePage: ParentComponent = ({ children }) => {
-  const { data: article, isLoading, isFetching } = useBlogItemPageData();
+  const { data: article, isLoading, isFetching } = useBlogItemPageData(Route);
   const imgContainerRef = useRef<HTMLDivElement>(null);
 
   if (!article && (isLoading || isFetching)) {
     return (
-      <SkeletonBlogItemPage>
+      <BlogItemPrePageLoader>
         <BlogItemPostPageLoader />
         {children}
-      </SkeletonBlogItemPage>
+      </BlogItemPrePageLoader>
     );
   }
   if (!article || !article.attributes) {

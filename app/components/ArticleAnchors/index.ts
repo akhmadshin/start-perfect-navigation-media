@@ -1,0 +1,1 @@
+export { ArticleAnchors } from './ArticleAnchors';

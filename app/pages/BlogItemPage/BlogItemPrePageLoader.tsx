@@ -4,7 +4,7 @@ import { SkeletonText } from '@/components/skeletons/SkeletonText';
 import { SkeletonImage } from '@/components/skeletons/SkeletonImage';
 import { SkeletonDescription } from '@/components/skeletons/SkeletonDescription';
 
-export const SkeletonBlogItemPage: ParentComponent = ({ children }) => {
+export const BlogItemPrePageLoader: ParentComponent = ({ children }) => {
   return (
     <Container className="">
       <div className="flex flex-col space-y-8 dark:text-gray-50">

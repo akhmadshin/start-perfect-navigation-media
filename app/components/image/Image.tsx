@@ -1,4 +1,4 @@
-import { LazyLoadImage, LazyLoadImageProps } from 'react-lazy-load-image-component';
+import { LazyLoadImageProps } from 'react-lazy-load-image-component';
 
 import React, { forwardRef, useEffect, useRef, useState } from 'react';
 import { createPngDataUri } from './createPngDataUri';

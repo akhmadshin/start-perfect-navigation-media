@@ -2,38 +2,38 @@ import { ErrorComponent, createFileRoute } from '@tanstack/react-router'
 import { NotFound } from '@/components/NotFound'
 import React from 'react'
 import { BlogItemPage } from '@/pages/BlogItemPage';
-import { postQueryOptions, useBlogItemPageData } from '@/utils/posts/useBlogItemPageData';
+import { blogItemPageOptions, useBlogItemPageData } from '@/utils/posts/useBlogItemPageData';
+import { WithErrorHandler } from '@/components/WithErrorHandler';
 
 const NotFoundRouteComponent = () => <NotFound>Post not found</NotFound>
 
 export const Route = createFileRoute('/blog/$postId')({
-  loader: async ({ params: { postId }, context, cause, route }) => {
-    const slugInt = parseInt(postId.match(/\d+/)![0]) ?? 0;
-    if (cause === 'preload' || typeof window === 'undefined') {
-      const data = await context.queryClient.ensureQueryData(
-        postQueryOptions(slugInt),
-      )
-
-      return {
-        title: data.attributes.title,
-      }
+  loader: async ({ params: { postId }, context, cause }) => {
+    if (cause !== 'preload' || typeof window !== 'undefined') {
+      return;
+    }
+    const data = await context.queryClient.ensureQueryData(
+      blogItemPageOptions(postId),
+    )
+    return {
+      title: data.attributes.title,
     }
   },
   errorComponent: ErrorComponent,
   notFoundComponent: NotFoundRouteComponent,
   component: PostComponent,
-})
+});
 
 function PostComponent() {
-  const { error } = useBlogItemPageData();
-  if (error) {
-    if (error.isNotFound) {
-      return <NotFoundRouteComponent />
-    }
-    return <ErrorComponent error={error} />
-  }
+  const { error } = useBlogItemPageData(Route);
 
   return (
-    <BlogItemPage />
+    <WithErrorHandler
+      notFoundComponent={Route.options.notFoundComponent}
+      errorComponent={Route.options.errorComponent}
+      error={error}
+    >
+      <BlogItemPage />
+    </WithErrorHandler>
   )
 }
