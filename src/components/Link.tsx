@@ -13,8 +13,6 @@ export const Link: React.FC<PropsWithChildren<Props>> = ({ children, onClick, pl
     if (onClick) {
       onClick(e);
     }
-    console.log('hash = ', hash);
-
 
     if (typeof hash === 'string') {
       e.preventDefault();

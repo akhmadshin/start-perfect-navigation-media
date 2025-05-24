@@ -87,9 +87,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     })
 
     router.history.subscribe((prop) => {
-      console.log('prop.action.type = ', prop.action.type);
       if (prop.action.type === 'FORWARD' || prop.action.type === 'BACK') {
-        console.log('prop.location.state.key = ', prop);
         if (prop.location.state.key) {
           handleHistoryTransitionStarted(prop.location.state.key);
         }
