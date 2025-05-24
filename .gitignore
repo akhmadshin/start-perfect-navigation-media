@@ -8,7 +8,6 @@ yarn.lock
 .vercel
 .output
 .vinxi
-.idea
 
 /build/
 /api/
