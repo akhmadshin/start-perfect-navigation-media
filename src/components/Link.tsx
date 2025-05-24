@@ -6,12 +6,23 @@ import { handleTransitionStarted } from '~/view-transition-name-handler';
 type Props = LinkProps & React.AnchorHTMLAttributes<HTMLAnchorElement> & {
   placeholderData?: object;
 }
-export const Link: React.FC<PropsWithChildren<Props>> = ({ children, onClick, placeholderData, ...props }) => {
+export const Link: React.FC<PropsWithChildren<Props>> = ({ children, onClick, placeholderData, hash, ...props }) => {
   const router = useRouterState();
 
   const handleClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (onClick) {
       onClick(e);
+    }
+    console.log('hash = ', hash);
+
+
+    if (typeof hash === 'string') {
+      e.preventDefault();
+      const targetElement = document.getElementById(hash);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+      }
+      return;
     }
 
     setPlaceholderData(placeholderData);

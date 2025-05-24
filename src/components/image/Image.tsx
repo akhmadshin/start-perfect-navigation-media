@@ -1,41 +1,38 @@
-import { LazyLoadImageProps } from 'react-lazy-load-image-component';
+import React from 'react';
+import { Component } from '~/types/general';
 
-import React, { forwardRef, useEffect, useRef, useState } from 'react';
-import { createPngDataUri } from './createPngDataUri';
-import { requestIdleCallback } from '~/lib/request-idle-callback'
-
-type Props = LazyLoadImageProps & {
-  thumbhash: string;
-  priority?: boolean;
+interface ImgProps {
+  // <img>-specific attributes
   alt?: string;
-}
+  src: string;
+  // srcSet?: string;
+  // sizes?: string;
+  // crossOrigin?: "anonymous" | "use-credentials";
+  // decoding?: "sync" | "async" | "auto";
+  height?: number | string;
+  width?: number | string;
+  // loading?: "eager" | "lazy";
+  // referrerPolicy?: string;         // Referrer policy for fetching the image
+  // useMap?: string;                 // Name of a <map> element to associate with the image
+  // isMap?: boolean;                 // Indicates if the image is part of a server-side image map
+  // fetchPriority?: "high" | "low" | "auto"; // Hint for the priority of fetching the image
 
-export const Image = forwardRef<HTMLImageElement, Props>(({
-  thumbhash,
-  priority,
+  className?: string;              // CSS class names (uses className for JS compatibility)
+  title?: string;                  // Advisory title of the image
+
+  // Common event handlers
+  onClick?: (event: MouseEvent) => void;  // Handler for click events
+  onLoad?: (event: Event) => void;        // Handler for when the image loads
+  onError?: (event: Event) => void;       // Handler for when the image fails to load
+}
+export const Image: Component<ImgProps> = ({
   height,
   width,
   alt,
   title,
   className = '',
   src,
-  children,
-  ...props
-}, ref) => {
-  const [blurDataURL, setBlurDataURL] = useState<string | undefined>();
-  const imgRef = useRef<HTMLImageElement>();
-
-  useEffect(() => {
-    if (typeof window === 'undefined' || !imgRef.current) {
-      return;
-    }
-    requestIdleCallback(() => {
-      if (imgRef.current?.complete) {
-        return;
-      }
-      setBlurDataURL(createPngDataUri(thumbhash));
-    });
-  }, [thumbhash])
+}) => {
 
   return (
     <img
@@ -47,10 +44,6 @@ export const Image = forwardRef<HTMLImageElement, Props>(({
       title={title ?? ''}
       height={height}
       width={width}
-      // placeholderSrc={blurDataURL as `data:image/${string}`}
-      {...props}
     />
   )
-})
-
-Image.displayName = 'Image';
+}

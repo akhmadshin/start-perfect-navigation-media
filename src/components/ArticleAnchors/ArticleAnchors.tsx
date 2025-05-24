@@ -3,13 +3,15 @@ import * as React from 'react';
 import { Heading } from '~/types/api';
 import { cn } from '~/lib/utils';
 import { useBlogItemPageData } from '~/utils/posts/useBlogItemPageData';
-import { Link as TanstackLink } from '@tanstack/react-router';
+import { Route } from '~/routes/blog.$postId';
+import { Link } from '~/components/Link';
 
 interface Props {
   headings: Heading[];
 }
 
 export const ArticleAnchors: Component<Props> = ({ headings }) => {
+  const { postId } = Route.useParams()
   const { isPlaceholderData } = useBlogItemPageData();
 
   return (
@@ -18,15 +20,16 @@ export const ArticleAnchors: Component<Props> = ({ headings }) => {
       <ul>
         {Array.from(headings).map(({title, hash}, index) => (
           <li key={index}>
-            <TanstackLink
-              to="/"
+            <Link
+              to={'/blog/$postId'}
+              params={{ postId: postId }}
               viewTransition={false}
               disabled={isPlaceholderData}
               className={cn(isPlaceholderData && 'cursor-wait')}
               hash={hash}
             >
               {title}
-            </TanstackLink>
+            </Link>
           </li>
         ))}
       </ul>

@@ -8,11 +8,9 @@ import { APIResponseData, ApiResponseMedia, ArticleListItem } from '~/types/api'
 
 interface Props {
   article: APIResponseData<ArticleListItem>;
-  priority?: boolean;
 }
 
-export const ArticleCard: React.FC<Props> = ({ article, priority }) => {
-  const imageRef = useRef<HTMLImageElement>(null);
+export const ArticleCard: React.FC<Props> = ({ article }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   if (!article) {
@@ -36,10 +34,6 @@ export const ArticleCard: React.FC<Props> = ({ article, priority }) => {
           >
             <Image
               className="lg:aspect-[16/9] aspect-[4/3] transitionable-img"
-              priority={priority}
-              thumbhash={coverAttributes.thumbhash}
-              sizes="(max-width: 768px) 100vw, 50vw"
-              ref={imageRef}
               src={`/uploads/${coverAttributes.name}`}
               alt={coverAttributes.alternativeText || ''}
               width={coverAttributes.width}

@@ -48,10 +48,7 @@ export const BlogItemPrePage: ParentComponent = ({ children }) => {
             <div ref={imgContainerRef}>
               <Image
                 className="aspect-[16/9] transition-img transitionable-img"
-                priority
-                sizes="100vw"
                 src={`/uploads/${coverAttributes.name}`}
-                thumbhash={coverAttributes.thumbhash}
                 alt={coverAttributes.alternativeText || ''}
                 width={coverAttributes.width}
                 height={coverAttributes.height}
