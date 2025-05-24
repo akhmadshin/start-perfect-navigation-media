@@ -3,7 +3,6 @@ import * as React from 'react';
 import { Heading } from '~/types/api';
 import { cn } from '~/lib/utils';
 import { useBlogItemPageData } from '~/utils/posts/useBlogItemPageData';
-import { Route } from '~/routes/blog.$postId';
 import { Link } from '~/components/Link';
 
 interface Props {
@@ -11,7 +10,6 @@ interface Props {
 }
 
 export const ArticleAnchors: Component<Props> = ({ headings }) => {
-  const { postId } = Route.useParams()
   const { isPlaceholderData } = useBlogItemPageData();
 
   return (
@@ -21,8 +19,6 @@ export const ArticleAnchors: Component<Props> = ({ headings }) => {
         {Array.from(headings).map(({title, hash}, index) => (
           <li key={index}>
             <Link
-              to={'/blog/$postId'}
-              params={{ postId: postId }}
               viewTransition={false}
               disabled={isPlaceholderData}
               className={cn(isPlaceholderData && 'cursor-wait')}
