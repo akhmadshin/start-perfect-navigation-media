@@ -22,6 +22,7 @@
     "redaxios": "^0.5.1",
     "tailwind-merge": "^2.6.0",
     "thumbhash": "^0.1.1",
+    "view-transition-name-handler": "^0.0.7",
     "vinxi": "0.5.3"
   },
   "devDependencies": {

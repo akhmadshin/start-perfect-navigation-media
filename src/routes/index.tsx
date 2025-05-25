@@ -5,14 +5,14 @@ import { HomePage } from '~/pages/HomePage';
 import { homePageQueryOptions, useHomePageData } from '~/utils/posts/useHomePageData';
 import { createIsomorphicFn } from '@tanstack/react-start';
 
-const myLoader = createIsomorphicFn()
+const loader = createIsomorphicFn()
   .server(async ({ context }) => {
     await context.queryClient.ensureQueryData(homePageQueryOptions())
   })
   .client(() => {})
 
 export const Route = createFileRoute('/')({
-  loader: myLoader,
+  loader,
   component: HomePageComponent,
   errorComponent: ErrorComponent,
 })

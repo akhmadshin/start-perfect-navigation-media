@@ -8,7 +8,7 @@ const fetchPosts = async () => {
 
 export const homePageQueryOptions = () =>
   queryOptions({
-    queryKey: ['posts'],
+    queryKey: ['blog-home'],
     retry: 0,
     staleTime: Infinity,
     queryFn: () => fetchPosts(),

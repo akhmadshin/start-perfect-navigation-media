@@ -4,8 +4,10 @@ import { BlogItemPostPage } from '~/pages/BlogItemPage/BlogItemPostPage';
 
 export const BlogItemPage = () => {
   return (
-    <BlogItemPrePage>
-      <BlogItemPostPage />
-    </BlogItemPrePage>
+    <div className="mt-6">
+      <BlogItemPrePage>
+        <BlogItemPostPage />
+      </BlogItemPrePage>
+    </div>
   )
 }

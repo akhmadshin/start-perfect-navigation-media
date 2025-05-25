@@ -22,6 +22,9 @@ const myLoader = createIsomorphicFn()
 export const Route = createFileRoute('/blog/$postId')({
   loader: myLoader,
   errorComponent: ErrorComponent,
+  head: ({ loaderData }) => ({
+    meta: loaderData ? [{ title: loaderData.title }] : undefined,
+  }),
   notFoundComponent: NotFoundRouteComponent,
   component: PostComponent,
 });

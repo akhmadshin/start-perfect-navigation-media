@@ -62,7 +62,7 @@ export const BlogItemPrePage: ParentComponent = ({ children }) => {
             </div>
           </div>
         </Container>
-        <div className="my-16" />
+        <div className="my-12" />
         <Container>
           <ArticleAnchors headings={headings} />
           <RichText content={previewContent}/>

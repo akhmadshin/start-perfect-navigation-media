@@ -30,10 +30,9 @@ export const ArticleCard: React.FC<Props> = ({ article }) => {
         <article className="flex flex-col items-start justify-between">
           <div
             className="relative w-full"
-            // className={articleAttributes.title === 'Three ways to achieve instant navigation' ? 'relative w-full transition-img' : 'relative w-full'}
           >
             <Image
-              className="lg:aspect-[16/9] aspect-[4/3] transitionable-img"
+              className="aspect-[16/9] transitionable-img"
               src={`/uploads/${coverAttributes.name}`}
               alt={coverAttributes.alternativeText || ''}
               width={coverAttributes.width}

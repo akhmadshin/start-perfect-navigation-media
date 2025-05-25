@@ -12,7 +12,7 @@ export const fetchPost = async (id: string) => {
 
 export const blogItemPageOptions = (postId: string, placeholderData?: any, fetchFn?: any) =>
   queryOptions<BlogItemPageProps, Error & { isNotFound: boolean }>({
-    queryKey: ['post', postId],
+    queryKey: ['blog', postId],
     retry: 0,
     staleTime: Infinity,
     queryFn: () => fetchFn ? fetchFn() : fetchPost(postId),
