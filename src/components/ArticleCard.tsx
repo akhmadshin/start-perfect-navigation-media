@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 
 import { Link } from '~/components/Link';
 import { SkeletonArticleCard } from '~/components/skeletons/SkeletonArticleCard';
-import { Image } from '~/components/image';
+import { Image } from '~/components/Image';
 import { RichText } from '~/components/RichText';
 import { APIResponseData, ApiResponseMedia, ArticleListItem } from '~/types/api';
 

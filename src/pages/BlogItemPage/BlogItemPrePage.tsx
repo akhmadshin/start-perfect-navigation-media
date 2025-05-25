@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from '~/components/Container';
-import { Image } from '~/components/image';
+import { Image } from '~/components/Image';
 import { RichText } from '~/components/RichText';
 import { ParentComponent } from '~/types/general';
 import { ArticleItemApi } from '~/types/api';
