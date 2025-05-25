@@ -1,7 +1,6 @@
 import articlesList from '../../../public/mock.json';
 import { getMockArticleList } from './getMockArticleList';
-import { BlogItemPageProps } from '~/types/pages/blogItemPage';
-import { APIResponseData, ArticleItem, ArticleListItem } from '~/types/api';
+import { APIResponseData, ArticleItemApi, ArticleListItem } from '~/types/api';
 
 export const getMockArticle = (origId: number) => {
   const id = origId % 20;
@@ -21,5 +20,5 @@ export const getMockArticle = (origId: number) => {
       title,
       slug,
     }
-  } as BlogItemPageProps
+  } as ArticleItemApi
 };

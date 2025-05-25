@@ -17,6 +17,13 @@ const ArticleListContent: Component<Props> = ({ articles, isLoading }) => {
         <SkeletonArticleCard/>
         <SkeletonArticleCard/>
         <SkeletonArticleCard/>
+        <SkeletonArticleCard/>
+        <SkeletonArticleCard/>
+        <SkeletonArticleCard/>
+        <SkeletonArticleCard/>
+        <SkeletonArticleCard/>
+        <SkeletonArticleCard/>
+        <SkeletonArticleCard/>
       </>
     )
   }

@@ -1,8 +1,8 @@
 import { Route } from '~/routes/blog.$postId';
 import { queryOptions, useQuery } from '@tanstack/react-query';
-import { BlogItemPageProps } from '~/types/pages/blogItemPage';
 import axios from 'redaxios';
 import { getPlaceholderData } from '~/singletones/placeholderData';
+import { ArticleItemApi } from '~/types/api';
 
 export const fetchPost = async (id: string) => {
   const slugInt = parseInt(id.match(/\d+/)![0]) ?? 0;
@@ -11,7 +11,7 @@ export const fetchPost = async (id: string) => {
 }
 
 export const blogItemPageOptions = (postId: string, placeholderData?: any, fetchFn?: any) =>
-  queryOptions<BlogItemPageProps, Error & { isNotFound: boolean }>({
+  queryOptions<ArticleItemApi, Error & { isNotFound: boolean }>({
     queryKey: ['blog', postId],
     retry: 0,
     staleTime: Infinity,

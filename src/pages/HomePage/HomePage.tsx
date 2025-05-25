@@ -14,13 +14,11 @@ export const HomePage = () => {
   return (
     <>
       <Meta
-        title="Posts"
+        title={title}
+        description={description}
       />
       <Container className="mt-6">
-        {/*<Meta*/}
-        {/*  title={title}*/}
-        {/*  description={description}*/}
-        {/*/>*/}
+
         <div className="prose lg:prose-xl dark:prose-invert max-w-2xl">
           <h1>
             {title}

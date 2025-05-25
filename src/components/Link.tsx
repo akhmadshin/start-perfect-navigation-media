@@ -10,18 +10,21 @@ type Props = LinkProps & React.AnchorHTMLAttributes<HTMLAnchorElement> & {
 export const Link: React.FC<PropsWithChildren<Props>> = ({ children, onClick, placeholderData, hash, ...props }) => {
   const router = useRouterState();
 
-  const handleClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (onClick) {
       onClick(e);
     }
 
     setPlaceholderData(placeholderData);
 
-    // Find an image that should start transitioning. Feel free to change that code.
+    if (!router.location.state.key) {
+      return;
+    }
+
     const transitionImg = e.currentTarget.querySelector<HTMLImageElement>('.transitionable-img') || document.querySelector('#transition-img');
     const src = transitionImg ? transitionImg.src.replace(location.origin || '', '') : '';
 
-    handleTransitionStarted(router.location.state.key ?? 'initial', [{
+    handleTransitionStarted(router.location.state.key, [{
       fromElement: transitionImg,
       toAttributeName: 'src',
       toAttributeValue: src,

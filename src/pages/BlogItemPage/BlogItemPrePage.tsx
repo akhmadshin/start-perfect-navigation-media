@@ -1,34 +1,20 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Container } from '~/components/Container';
 import { Image } from '~/components/image';
 import { RichText } from '~/components/RichText';
 import { ParentComponent } from '~/types/general';
-import { useBlogItemPageData } from '~/utils/posts/useBlogItemPageData';
+import { ArticleItemApi } from '~/types/api';
 import { ArticleAnchors } from '~/components/ArticleAnchors';
 import { Meta } from '~/components/Meta';
 
-import { BlogItemPrePageLoader } from './BlogItemPrePageLoader';
-import { BlogItemPostPageLoader } from './BlogItemPostPageLoader';
+interface BlogItemPrePageProps {
+  article: ArticleItemApi;
+}
 
-export const BlogItemPrePage: ParentComponent = ({ children }) => {
-  const { data: article, isLoading, isFetching } = useBlogItemPageData();
-  const imgContainerRef = useRef<HTMLDivElement>(null);
-
-  if (!article && (isLoading || isFetching)) {
-    return (
-      <BlogItemPrePageLoader>
-        <BlogItemPostPageLoader />
-        {children}
-      </BlogItemPrePageLoader>
-    );
-  }
-  if (!article || !article.attributes) {
-    return children;
-  }
-
+export const BlogItemPrePage: ParentComponent<BlogItemPrePageProps> = ({ article, children }) => {
   const articleAttributes = article.attributes || {};
   const coverAttributes = articleAttributes.thumbnail.data!.attributes || {};
-  const {title, description, headings, previewContent, slug, seo } = articleAttributes;
+  const { title, description, headings, previewContent, slug, seo } = articleAttributes;
 
   return (
     <>
@@ -44,8 +30,8 @@ export const BlogItemPrePage: ParentComponent = ({ children }) => {
       )}
       <article className="flex flex-col dark:text-gray-50">
         <Container>
-          <div className="flex flex-col ">
-            <div ref={imgContainerRef}>
+          <div className="flex flex-col">
+            <div>
               <Image
                 className="aspect-[16/9] transition-img transitionable-img"
                 src={`/uploads/${coverAttributes.name}`}
@@ -58,19 +44,17 @@ export const BlogItemPrePage: ParentComponent = ({ children }) => {
               <h1>{title}</h1>
             </div>
             <div className="text-xl mt-10">
-              <RichText content={description}/>
+              <RichText content={description} />
             </div>
           </div>
         </Container>
         <div className="my-12" />
         <Container>
           <ArticleAnchors headings={headings} />
-          <RichText content={previewContent}/>
+          <RichText content={previewContent} />
         </Container>
-        <div className="flex flex-col space-y-6">
-          {children}
-        </div>
+        <div className="flex flex-col space-y-6">{children}</div>
       </article>
     </>
-  )
-}
+  );
+};
