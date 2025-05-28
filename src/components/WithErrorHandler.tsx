@@ -5,11 +5,11 @@ import { ErrorRouteComponent, NotFoundRouteComponent } from '@tanstack/react-rou
 interface Props {
   notFoundComponent?: NotFoundRouteComponent;
   errorComponent?: ErrorRouteComponent | false | null;
-  error: Error & { isNotFound: boolean } | null;
+  error: Error & { isNotFound: boolean } | Error | null;
 }
 export const WithErrorHandler: ParentComponent<Props> = ({ errorComponent: ErrorComponent, notFoundComponent: NotFoundComponent, error, children }) => {
   if (error) {
-    if (error.isNotFound) {
+    if ('isNotFound' in error && error.isNotFound) {
       return NotFoundComponent ? <NotFoundComponent data={{}} /> : null;
     }
     return ErrorComponent ? <ErrorComponent reset={() => {}} error={error} /> : null;
