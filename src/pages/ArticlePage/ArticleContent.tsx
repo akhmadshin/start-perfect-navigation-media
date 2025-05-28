@@ -1,17 +1,17 @@
 import React, { useEffect, useRef } from 'react';
 import { APIResponseData, ArticleItem, ArticleListItem } from '~/types/api';
-import { BlogItemCarousel } from './BlogItemCarousel';
+import { RelatedArticles } from './RelatedArticles';
 import { Container } from '~/components/Container';
 import { RichText } from '~/components/RichText';
 import { Component } from '~/types/general';
-import { BlogItemPostPageLoader } from '~/pages/BlogItemPage/BlogItemPostPageLoader';
+import { ArticleContentSkeleton } from './ArticleContentSkeleton';
 import type { BlocksContent } from '@strapi/blocks-react-renderer';
 
-interface BlogItemPostPageProps {
+interface Props {
   article: APIResponseData<ArticleListItem | ArticleItem>;
 }
 
-export const BlogItemPostPage: Component<BlogItemPostPageProps> = ({ article }) => {
+export const ArticleContent: Component<Props> = ({ article }) => {
   const articleAttributes = article.attributes || {};
   let content: BlocksContent | undefined;
   if ('content' in articleAttributes) {
@@ -36,7 +36,7 @@ export const BlogItemPostPage: Component<BlogItemPostPageProps> = ({ article }) 
 
   if (!content) {
     return (
-      <BlogItemPostPageLoader />
+      <ArticleContentSkeleton />
     );
   }
 
@@ -45,7 +45,7 @@ export const BlogItemPostPage: Component<BlogItemPostPageProps> = ({ article }) 
       ref={ref}
       className={"transition-opacity ease-linear duration-700 opacity-0"}
     >
-      <BlogItemCarousel articles={relatedArticles} />
+      <RelatedArticles articles={relatedArticles} />
       <Container>
         <RichText content={content} />
       </Container>

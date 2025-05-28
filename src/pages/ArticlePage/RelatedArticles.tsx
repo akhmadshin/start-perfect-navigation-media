@@ -8,7 +8,7 @@ interface BlogItemCarouselProps {
   articles: APIResponseData<ArticleListItem>[];
 }
 
-export const BlogItemCarousel: Component<BlogItemCarouselProps> = ({ articles }) => {
+export const RelatedArticles: Component<BlogItemCarouselProps> = ({ articles }) => {
   return (
     <Container className="mt-12">
       <div className="ml-0 grid grid-cols-2 gap-x-3 gap-y-8 sm:gap-x-6 sm:gap-y-12">

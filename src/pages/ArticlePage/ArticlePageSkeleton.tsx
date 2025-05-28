@@ -1,10 +1,10 @@
-import { ParentComponent } from '~/types/general';
 import { Container } from '~/components/Container';
 import { SkeletonText } from '~/components/skeletons/SkeletonText';
 import { SkeletonImage } from '~/components/skeletons/SkeletonImage';
 import { SkeletonDescription } from '~/components/skeletons/SkeletonDescription';
+import { ArticleContentSkeleton } from './ArticleContentSkeleton';
 
-export const BlogItemPrePageLoader: ParentComponent = ({ children }) => {
+export const ArticlePageSkeleton = () => {
   return (
     <Container className="">
       <div className="flex flex-col space-y-8 dark:text-gray-50">
@@ -30,7 +30,7 @@ export const BlogItemPrePageLoader: ParentComponent = ({ children }) => {
             </div>
           </div>
         </div>
-        {children}
+        <ArticleContentSkeleton />
       </div>
     </Container>
   );

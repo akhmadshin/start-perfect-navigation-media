@@ -1,7 +1,7 @@
 import { ErrorComponent, createFileRoute } from '@tanstack/react-router'
 import { NotFound } from '~/components/NotFound'
 import React from 'react'
-import { BlogItemPage } from '~/pages/BlogItemPage';
+import { ArticlePage } from 'src/pages/ArticlePage';
 import { blogItemPageOptions, useBlogItemPageData } from '~/utils/posts/useBlogItemPageData';
 import { WithErrorHandler } from '~/components/WithErrorHandler';
 import { createIsomorphicFn } from '@tanstack/react-start';
@@ -38,7 +38,7 @@ function PostComponent() {
       errorComponent={Route.options.errorComponent}
       error={error}
     >
-      <BlogItemPage />
+      <ArticlePage />
     </WithErrorHandler>
   )
 }

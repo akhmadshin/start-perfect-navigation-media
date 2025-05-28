@@ -1,4 +1,4 @@
-export const BlogItemPostPageLoader = () => {
+export const ArticleContentSkeleton = () => {
   return (
     <div className="h-screen flex flex-col">
       <div className="basis-1/2 flex items-center justify-center">
