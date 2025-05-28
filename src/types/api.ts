@@ -1,27 +1,17 @@
 import { BlocksContent } from '@strapi/blocks-react-renderer';
 
-
-export interface APIResponseCollectionPagination {
-  page: number;
-  pageSize: number;
-  pageCount: number;
-  total: number;
-}
 export interface APIResponseCollectionMetadata {
-  pagination: APIResponseCollectionPagination;
+  pagination: {
+    page: number;
+    pageSize: number;
+    pageCount: number;
+    total: number;
+  };
 }
 
-interface APIIdProperty {
-  id: number;
-}
-export interface APIResponseData<Attributes>
-  extends APIIdProperty {
+export interface APIResponseData<Attributes> {
   attributes: Attributes;
-}
-
-export interface APIResponse<TContentTypeUID> {
-  data: APIResponseData<TContentTypeUID> | null;
-  meta: object;
+  id: number;
 }
 
 export interface APIResponseCollection<
@@ -62,10 +52,12 @@ export interface Heading {
 }
 
 export interface ArticleItem extends ArticleListItem {
-  seo: any;
+  seo: {
+    title: string;
+    description: string;
+  };
   relatedArticles: APIResponseData<ArticleListItem>[];
-  sections: any[];
-  content: any[];
+  content: BlocksContent;
 }
 
 export type ArticleListApi = APIResponseCollection<ArticleListItem>;

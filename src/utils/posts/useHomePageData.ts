@@ -1,9 +1,10 @@
-import { queryOptions, useQuery } from '@tanstack/react-query';
+import  { queryOptions, useQuery } from '@tanstack/react-query';
 import axios from 'redaxios';
+import { ArticleListApi } from '~/types/api';
 
 const fetchPosts = async () => {
-  const post = await axios.get(`${import.meta.env.VITE_SITE_ORIGIN || 'http://localhost:3000'}/api/posts`) as any
-  return post;
+  const post = await axios.get<ArticleListApi>(`${import.meta.env.VITE_SITE_ORIGIN || 'http://localhost:3000'}/api/posts`);
+  return post.data;
 }
 
 export const homePageQueryOptions = () =>

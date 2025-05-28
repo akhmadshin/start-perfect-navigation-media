@@ -3,19 +3,22 @@ import { Container } from '~/components/Container';
 import { Image } from '~/components/Image';
 import { RichText } from '~/components/RichText';
 import { ParentComponent } from '~/types/general';
-import { ArticleItemApi } from '~/types/api';
+import { APIResponseData, ArticleItem, ArticleItemApi, ArticleListItem } from '~/types/api';
 import { ArticleAnchors } from '~/components/ArticleAnchors';
 import { Meta } from '~/components/Meta';
 
 interface BlogItemPrePageProps {
-  article: ArticleItemApi;
+  article: APIResponseData<ArticleListItem | ArticleItem>;
 }
 
 export const BlogItemPrePage: ParentComponent<BlogItemPrePageProps> = ({ article, children }) => {
   const articleAttributes = article.attributes || {};
   const coverAttributes = articleAttributes.thumbnail.data!.attributes || {};
-  const { title, description, headings, previewContent, slug, seo } = articleAttributes;
-
+  const { title, description, headings, previewContent, slug } = articleAttributes;
+  let seo;
+  if ('seo' in articleAttributes) {
+    seo = articleAttributes.seo;
+  }
   return (
     <>
       {seo && (
@@ -53,7 +56,9 @@ export const BlogItemPrePage: ParentComponent<BlogItemPrePageProps> = ({ article
           <ArticleAnchors headings={headings} />
           <RichText content={previewContent} />
         </Container>
-        <div className="flex flex-col space-y-6">{children}</div>
+        <div className="flex flex-col space-y-6">
+          {children}
+        </div>
       </article>
     </>
   );

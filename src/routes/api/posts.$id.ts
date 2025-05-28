@@ -7,7 +7,7 @@ export const APIRoute = createAPIFileRoute('/api/posts/$id')({
     console.info(`Fetching posts by id=${params.id}... @`, request.url)
     try {
       const slugInt = parseInt(params.id.match(/\d+/)![0]) ?? 0;
-      const post = getMockArticle(slugInt) as any
+      const post = getMockArticle(slugInt);
 
       return json(post)
     } catch (e) {

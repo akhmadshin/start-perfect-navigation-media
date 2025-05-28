@@ -17,10 +17,8 @@ export const BlogItemPage = () => {
   }
 
   return (
-    <div className="mt-6">
-      <BlogItemPrePage article={article}>
-        <BlogItemPostPage article={article} />
-      </BlogItemPrePage>
-    </div>
+    <BlogItemPrePage article={article}>
+      <BlogItemPostPage article={article} />
+    </BlogItemPrePage>
   );
 };

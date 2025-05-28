@@ -95,12 +95,14 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     })
   }, []);
 
-  useEffect(() => {
+useEffect(() => {
+  requestIdleCallback(() => {
     Promise.all([
       router.loadRouteChunk(router.routesByPath['/']),
       router.loadRouteChunk(router.routesByPath['/blog/$postId']),
     ]).catch((err) => new Error(err));
-  }, []);
+  });
+}, []);
 
   return (
     <html>
@@ -120,7 +122,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           </Link>{' '}
         </div>
         <hr />
-        {children}
+        <div className="mt-8">
+          {children}
+        </div>
         <TanStackRouterDevtools position="bottom-right" />
         <ReactQueryDevtools buttonPosition="bottom-left" />
         <Scripts />

@@ -2,7 +2,7 @@ import { Route } from '~/routes/blog.$postId';
 import { queryOptions, useQuery } from '@tanstack/react-query';
 import axios from 'redaxios';
 import { getPlaceholderData } from '~/singletones/placeholderData';
-import { ArticleItemApi } from '~/types/api';
+import { APIResponseData, ArticleItem, ArticleListItem } from '~/types/api';
 
 export const fetchPost = async (id: string) => {
   const slugInt = parseInt(id.match(/\d+/)![0]) ?? 0;
@@ -10,17 +10,17 @@ export const fetchPost = async (id: string) => {
   return post.data;
 }
 
-export const blogItemPageOptions = (postId: string, placeholderData?: any, fetchFn?: any) =>
-  queryOptions<ArticleItemApi, Error & { isNotFound: boolean }>({
+export const blogItemPageOptions = (postId: string, placeholderData?: APIResponseData<ArticleListItem>) =>
+  queryOptions<APIResponseData<ArticleItem | ArticleListItem>, Error & { isNotFound: boolean }>({
     queryKey: ['blog', postId],
     retry: 0,
     staleTime: Infinity,
-    queryFn: () => fetchFn ? fetchFn() : fetchPost(postId),
+    queryFn: () => fetchPost(postId),
     placeholderData,
   })
 
 export const useBlogItemPageData = () => {
-  const placeholderData = getPlaceholderData();
+  const placeholderData = getPlaceholderData() as APIResponseData<ArticleListItem>;
   const { postId } = Route.useParams()
   const queryData = useQuery(
     blogItemPageOptions(

@@ -5,6 +5,9 @@ import { json } from '@tanstack/react-start';
 export const APIRoute = createAPIFileRoute('/api/posts')({
   GET: async () => {
     const articles = Array.from(Array(20).keys()).map((id) => articlesList[id]);
-    return json(articles)
+    return json({
+      data: articles,
+      meta: {},
+    })
   },
 })
