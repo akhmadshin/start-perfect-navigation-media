@@ -8,9 +8,10 @@ import { APIResponseData, ApiResponseMedia, ArticleListItem } from '~/types/api'
 
 interface Props {
   article: APIResponseData<ArticleListItem>;
+  priority?: boolean;
 }
 
-export const ArticleCard: React.FC<Props> = ({ article }) => {
+export const ArticleCard: React.FC<Props> = ({ article, priority }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   if (!article) {
@@ -32,11 +33,14 @@ export const ArticleCard: React.FC<Props> = ({ article }) => {
             className="relative w-full"
           >
             <Image
+              priority={priority}
               className="aspect-[16/9] transitionable-img"
               src={`/uploads/${coverAttributes.name}`}
               alt={coverAttributes.alternativeText || ''}
               width={coverAttributes.width}
+              sizes="(max-width: 768px) 100vw, 50vw"
               height={coverAttributes.height}
+              thumbhash={coverAttributes.thumbhash}
             />
             <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10"/>
           </div>

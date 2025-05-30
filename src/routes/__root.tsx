@@ -15,6 +15,7 @@ import appCss from '~/styles/app.css?url'
 import { seo } from '~/utils/seo'
 import { useEffect } from 'react';
 import { handleHistoryTransitionStarted, handleRouteChangeComplete } from 'view-transition-name-handler';
+import { Header } from '~/components/Header';
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient
@@ -110,18 +111,7 @@ useEffect(() => {
         <HeadContent />
       </head>
       <body>
-        <div className="p-2 flex gap-2 text-lg">
-          <Link
-            to="/"
-            activeProps={{
-              className: 'font-bold',
-            }}
-            activeOptions={{ exact: true }}
-          >
-            Home
-          </Link>{' '}
-        </div>
-        <hr />
+      <Header />
         <div className="mt-8">
           {children}
         </div>

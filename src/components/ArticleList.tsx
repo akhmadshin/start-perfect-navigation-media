@@ -35,7 +35,7 @@ const ArticleListContent: Component<Props> = ({ articles, isLoading }) => {
   return (
     <>
       {articles.data.map((article, index) => (
-        <ArticleCard article={article} key={index}/>
+        <ArticleCard article={article} key={index} priority={index === 0} />
       ))}
     </>
   )

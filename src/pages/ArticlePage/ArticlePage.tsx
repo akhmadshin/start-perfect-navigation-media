@@ -49,6 +49,7 @@ const ArticlePageFulfilled: Component<Props> = ({ article }) => {
         <Container>
           <div className="flex flex-col">
             <Image
+              thumbhash={coverAttributes.thumbhash}
               className="aspect-[16/9] transition-img transitionable-img"
               src={`/uploads/${coverAttributes.name}`}
               alt={coverAttributes.alternativeText || ''}
