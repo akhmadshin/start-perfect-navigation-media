@@ -16,18 +16,16 @@ import type {
   OnLoadingComplete,
   PlaceholderValue,
 } from './lib/get-img-props'
-import type {
+import {
+  defaultLoader,
   ImageLoaderProps,
 } from './lib/image-config'
 import { imageConfigDefault } from './lib/image-config'
 import { warnOnce } from './lib/utils/warn-once'
 
-// This is replaced by webpack alias
-import defaultLoader from './lib/image-loader'
 import { useMergedRef } from './use-merged-ref'
 
 export type { ImageLoaderProps }
-export type ImageLoader = (p: ImageLoaderProps) => string
 
 type ImgElementWithDataProp = HTMLImageElement & {
   'data-loaded-src': string | undefined
@@ -352,9 +350,8 @@ export const NextImage = forwardRef<HTMLImageElement | null, ImageProps>(
 
     const { props: imgAttributes, meta: imgMeta } = getImgProps({
       ...props,
-      loader: ({ src, width }: ImageLoaderProps) => `${src.replace('/uploads/', `/uploads/${width}_`)}`
+      loader: ({ src, width }: ImageLoaderProps) => defaultLoader({ src, width }),
     }, {
-      defaultLoader,
       imgConf: config,
       blurComplete,
       showAltText,

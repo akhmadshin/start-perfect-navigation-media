@@ -55,6 +55,7 @@ const ArticlePageFulfilled: Component<Props> = ({ article }) => {
               alt={coverAttributes.alternativeText || ''}
               width={coverAttributes.width}
               height={coverAttributes.height}
+              sizes="100vw"
             />
             <div className="prose lg:prose-xl dark:prose-invert max-w-none mt-14">
               <h1>{title}</h1>

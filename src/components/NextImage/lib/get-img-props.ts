@@ -283,7 +283,6 @@ export function getImgProps(
     ...rest
   }: ImageProps,
   _state: {
-    defaultLoader: ImageLoaderWithConfig
     imgConf: ImageConfigComplete
     showAltText?: boolean
     blurComplete?: boolean
@@ -297,7 +296,7 @@ export function getImgProps(
     fill: boolean
   }
 } {
-  const { imgConf, showAltText, blurComplete, defaultLoader } = _state
+  const { imgConf, showAltText, blurComplete } = _state
   let config: ImageConfig
   let c = imgConf || imageConfigDefault
   if ('allSizes' in c) {
@@ -309,12 +308,7 @@ export function getImgProps(
     config = { ...c, allSizes, deviceSizes, qualities }
   }
 
-  if (typeof defaultLoader === 'undefined') {
-    throw new Error(
-      'images.loaderFile detected but the file is missing default export.\nRead more: https://nextjs.org/docs/messages/invalid-images-config'
-    )
-  }
-  let loader: ImageLoaderWithConfig = rest.loader || defaultLoader
+  let loader: ImageLoaderWithConfig = rest.loader!
 
   // Remove property so it's not spread on <img> element
   delete rest.loader
