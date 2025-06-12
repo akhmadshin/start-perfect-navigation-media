@@ -6,17 +6,15 @@ import { ArticlePageSkeleton } from '~/pages/ArticlePage/ArticlePageSkeleton';
 export const ArticlePage = () => {
   const { data: article, isLoading, isPlaceholderData } = useBlogItemPageData();
 
-  if (!article && isLoading) {
+  if (isLoading && !article) {
     return (
       <ArticlePageSkeleton />
     );
   }
 
-  if (!article) {
-    return null;
+  if (article) {
+    return (
+      <ArticlePageFulfilled article={article} isPlaceholderData={isPlaceholderData} />
+    )
   }
-
-  return (
-    <ArticlePageFulfilled article={article} isPlaceholderData={isPlaceholderData} />
-  )
 };
