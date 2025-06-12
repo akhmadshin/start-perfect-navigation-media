@@ -20,7 +20,7 @@ export function Header() {
                 "border-b-4",
                 router.location.pathname === '/' ? "border-neutral-950 dark:border-gray-200" : 'border-transparent',
               )}
-              to="."
+              to="/"
               aria-label="Home"
             >
               <div className="flex items-center h-9">
