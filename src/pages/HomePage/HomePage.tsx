@@ -11,7 +11,6 @@ const description = 'That website demonstrates consistently fast navigation via 
 export const HomePage = () => {
   const { data: articles, isLoading, isFetching} = useHomePageData();
 
-  console.log(articles);
   return (
     <>
       <Meta

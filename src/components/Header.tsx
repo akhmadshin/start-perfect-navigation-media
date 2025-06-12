@@ -11,7 +11,7 @@ export function Header() {
   const router = useRouterState();
 
   return (
-    <header className="main-header top-0 z-50 border solid">
+    <header className="main-header top-0 z-50 border-b solid">
       <Container className="">
         <div className="flex justify-between items-center flex-1 gap-6 h-16">
           <div className="flex items-center space-x-8">

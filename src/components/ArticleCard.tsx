@@ -45,7 +45,7 @@ export const ArticleCard: React.FC<Props> = ({ article, priority }) => {
                 src={`/uploads/${coverAttributes.name}`}
                 alt={coverAttributes.alternativeText || ''}
                 width={coverAttributes.width}
-                sizes="(max-width: 768px) 100vw, 50vw"
+                sizes="(max-width: 526px) 100vw, 50vw"
                 height={coverAttributes.height}
                 thumbhash={coverAttributes.thumbhash}
               />

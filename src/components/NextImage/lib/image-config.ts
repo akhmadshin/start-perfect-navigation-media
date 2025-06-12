@@ -128,8 +128,6 @@ export type ImageConfigComplete = {
 export type ImageConfig = Partial<ImageConfigComplete>
 
 export const defaultLoader = ({ src, width }: ImageLoaderProps) => {
-  console.log('src ', src);
-  console.log('width ', width);
   return `${src.replace('/uploads/', `/uploads/${width}_`)}`
 };
 
@@ -144,7 +142,7 @@ export const imageConfigDefault: ImageConfigComplete = {
   domains: [],
   disableStaticImages: false,
   minimumCacheTTL: 60,
-  formats: ['image/webp'],
+  formats: [],
   dangerouslyAllowSVG: false,
   contentSecurityPolicy: `script-src 'none'; frame-src 'none'; sandbox;`,
   contentDispositionType: 'attachment',
