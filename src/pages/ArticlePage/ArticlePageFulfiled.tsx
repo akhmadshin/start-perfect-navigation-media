@@ -11,10 +11,10 @@ import { Counter } from '~/pages/ArticlePage/Counter';
 
 interface Props {
   article: APIResponseData<ArticleListItem | ArticleItem>;
-  isFallback: boolean;
+  isPlaceholderData: boolean;
 }
 
-export const ArticlePageFulfilled: Component<Props> = ({ article, isFallback }) => {
+export const ArticlePageFulfilled: Component<Props> = ({ article, isPlaceholderData }) => {
   const articleAttributes = article.attributes || {};
   const coverAttributes = articleAttributes.thumbnail.data!.attributes || {};
   const { title, description, headings, previewContent, slug } = articleAttributes;
@@ -58,7 +58,7 @@ export const ArticlePageFulfilled: Component<Props> = ({ article, isFallback }) 
         </Container>
         <div className="my-12" />
         <Container>
-          <ArticleAnchors headings={headings} isPlaceholderData={isFallback} />
+          <ArticleAnchors headings={headings} isPlaceholderData={isPlaceholderData} />
           <RichText content={previewContent} />
         </Container>
         <div className="flex flex-col space-y-6">

@@ -1,8 +1,8 @@
 import { getMockArticle } from '~/utils/posts/getMockArticle';
-import { createAPIFileRoute } from '@tanstack/react-start/api';
 import { json } from '@tanstack/react-start';
+import { createServerFileRoute } from '@tanstack/react-start/server';
 
-export const APIRoute = createAPIFileRoute('/api/posts/$id')({
+export const ServerRoute = createServerFileRoute('/api/posts/$id').methods({
   GET: async ({ request, params }) => {
     console.info(`Fetching posts by id=${params.id}... @`, request.url)
     try {

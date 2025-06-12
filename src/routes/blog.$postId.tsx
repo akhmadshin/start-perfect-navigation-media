@@ -1,27 +1,44 @@
 import { ErrorComponent, createFileRoute } from '@tanstack/react-router'
 import { NotFound } from '~/components/NotFound'
-import React, { Suspense } from 'react'
+import React from 'react'
 import { ArticlePage } from 'src/pages/ArticlePage';
-import { blogItemPageOptions } from '~/utils/posts/useBlogItemPageData';
-import { ArticlePageFallback } from '~/pages/ArticlePage/ArticlePageFallback';
+import { blogItemPageOptions, useBlogItemPageData } from '~/utils/posts/useBlogItemPageData';
+import { WithErrorHandler } from '~/components/WithErrorHandler';
+import { createIsomorphicFn } from '@tanstack/react-start';
 
 const NotFoundRouteComponent = () => <NotFound>Post not found</NotFound>
 
-export const Route = createFileRoute('/blog/$postId')({
-  loader: ({ params: { postId }, context }) => {
-    context.queryClient.ensureQueryData(
+const myLoader = createIsomorphicFn()
+  .server(async ({ params: { postId }, context }) => {
+    const data = await context.queryClient.ensureQueryData(
       blogItemPageOptions(postId),
     )
-  },
+    return {
+      title: data.attributes.title,
+    }
+  })
+  .client(() => {})
+
+export const Route = createFileRoute('/blog/$postId')({
+  loader: myLoader,
   errorComponent: ErrorComponent,
+  head: ({ loaderData }) => ({
+    meta: loaderData ? [{ title: loaderData.title }] : undefined,
+  }),
   notFoundComponent: NotFoundRouteComponent,
   component: PostComponent,
 });
 
 function PostComponent() {
+  const { error } = useBlogItemPageData();
+
   return (
-    <Suspense fallback={<ArticlePageFallback />}>
+    <WithErrorHandler
+      notFoundComponent={Route.options.notFoundComponent}
+      errorComponent={Route.options.errorComponent}
+      error={error}
+    >
       <ArticlePage />
-    </Suspense>
-  );
+    </WithErrorHandler>
+  )
 }
