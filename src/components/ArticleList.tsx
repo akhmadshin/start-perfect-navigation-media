@@ -47,7 +47,7 @@ const ArticleListContent: Component<Props> = ({ articles, isLoading }) => {
 }
 
 export const ArticleList: Component = () => {
-  const { data: articles, isLoading, isFetching} = useHomePageData();
+  const { data: articles, isLoading } = useHomePageData();
 
   return (
     <div className="mt-16">
