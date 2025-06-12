@@ -4,7 +4,7 @@ import { Container } from '~/components/Container';
 import { Image } from '~/components/Image';
 import { RichText } from '~/components/RichText';
 import { ArticleAnchors } from '~/components/ArticleAnchors';
-import { ArticleContent } from './ArticleContent';
+import { ArticlePageContent } from './ArticlePageContent';
 import { APIResponseData, ArticleItem, ArticleListItem } from '~/types/api';
 import { Component } from '~/types/general';
 import { Counter } from '~/pages/ArticlePage/Counter';
@@ -62,7 +62,7 @@ export const ArticlePageFulfilled: Component<Props> = ({ article, isPlaceholderD
           <RichText content={previewContent} />
         </Container>
         <div className="flex flex-col space-y-6">
-          <ArticleContent article={article} />
+          <ArticlePageContent article={article} />
         </div>
       </article>
     </>

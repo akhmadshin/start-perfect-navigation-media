@@ -4,14 +4,14 @@ import { RelatedArticles } from './RelatedArticles';
 import { Container } from '~/components/Container';
 import { RichText } from '~/components/RichText';
 import { Component } from '~/types/general';
-import { ArticleContentSkeleton } from './ArticleContentSkeleton';
+import { ArticlePageContentSkeleton } from './ArticlePageContentSkeleton';
 import type { BlocksContent } from '@strapi/blocks-react-renderer';
 
 interface Props {
   article: APIResponseData<ArticleListItem | ArticleItem>;
 }
 
-export const ArticleContent: Component<Props> = ({ article }) => {
+export const ArticlePageContent: Component<Props> = ({ article }) => {
   const articleAttributes = article.attributes || {};
   let content: BlocksContent | undefined;
   if ('content' in articleAttributes) {
@@ -36,7 +36,7 @@ export const ArticleContent: Component<Props> = ({ article }) => {
 
   if (!content) {
     return (
-      <ArticleContentSkeleton />
+      <ArticlePageContentSkeleton />
     );
   }
 

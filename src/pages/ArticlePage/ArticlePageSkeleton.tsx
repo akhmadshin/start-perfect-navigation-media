@@ -2,7 +2,7 @@ import { Container } from '~/components/Container';
 import { SkeletonText } from '~/components/skeletons/SkeletonText';
 import { SkeletonImage } from '~/components/skeletons/SkeletonImage';
 import { SkeletonDescription } from '~/components/skeletons/SkeletonDescription';
-import { ArticleContentSkeleton } from './ArticleContentSkeleton';
+import { ArticlePageContentSkeleton } from './ArticlePageContentSkeleton';
 
 export const ArticlePageSkeleton = () => {
   return (
@@ -30,7 +30,7 @@ export const ArticlePageSkeleton = () => {
             </div>
           </div>
         </div>
-        <ArticleContentSkeleton />
+        <ArticlePageContentSkeleton />
       </div>
     </Container>
   );
