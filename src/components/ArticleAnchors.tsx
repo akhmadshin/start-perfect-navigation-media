@@ -2,17 +2,15 @@ import { Component } from '~/types/general';
 import * as React from 'react';
 import { Heading } from '~/types/api';
 import { cn } from '~/lib/utils';
-import { useBlogItemPageData } from '~/utils/posts/useBlogItemPageData';
 import { Link } from '~/components/Link';
 import { Route } from '~/routes/blog.$postId';
 
 interface Props {
   headings: Heading[];
+  isPlaceholderData: boolean;
 }
 
-export const ArticleAnchors: Component<Props> = ({ headings }) => {
-  const { isPlaceholderData } = useBlogItemPageData();
-
+export const ArticleAnchors: Component<Props> = ({ headings, isPlaceholderData }) => {
   const { postId } = Route.useParams();
   return (
     <nav className="prose prose-slate lg:prose-xl dark:prose-invert max-w-none">
