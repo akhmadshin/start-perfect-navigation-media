@@ -1,72 +1,20 @@
-# Welcome to TanStack.com!
+# Optimistic Navigation
+That project exists because I set a goal for myself of creating a website that would have consistently fast navigation regardless of the Internet speed or CPU performance.
 
-This site is built with TanStack Router!
+I could simply use prefetching to achieve my goal. But prefetching at scale is expensive and wasteful, so I decided to go the other way. Rather than preloading content, I attempted to create the illusion that it's already loaded. I call it "Optimistic Navigation."
 
-- [TanStack Router Docs](https://tanstack.com/router)
+Let's assume that data from the entity list request matches the data from the entity detail request. Then, when a user navigates from a page with an entity list to an entity detail page, the page can be rendered optimistically (synchronously) with data from the entity list. With that idea in mind, I was able to hide around 2 seconds of network latency during soft navigation.
 
-It's deployed automagically with Netlify!
+Optimistic navigation has a positive impact on user engagement, SEO, and hosting bills. But to implement it, tight cooperation between the backend, frontend, and design teams is required.
 
-- [Netlify](https://netlify.com/)
+Read that interactive article to find out more about optimistic navigation!
+- [Optimistic Navigation: Creating the Illusion of Performance](https://akhmadshin.dev/blog/optimistic-navigation-performance-illusion/)
 
 ## Development
 
 From your terminal:
 
 ```sh
-pnpm install
-pnpm dev
+npm install
+npm dev
 ```
-
-This starts your app in development mode, rebuilding assets on file changes.
-
-## Editing and previewing the docs of TanStack projects locally
-
-The documentations for all TanStack projects except for `React Charts` are hosted on [https://tanstack.com](https://tanstack.com), powered by this TanStack Router app.
-In production, the markdown doc pages are fetched from the GitHub repos of the projects, but in development they are read from the local file system.
-
-Follow these steps if you want to edit the doc pages of a project (in these steps we'll assume it's [`TanStack/form`](https://github.com/tanstack/form)) and preview them locally :
-
-1. Create a new directory called `tanstack`.
-
-```sh
-mkdir tanstack
-```
-
-2. Enter the directory and clone this repo and the repo of the project there.
-
-```sh
-cd tanstack
-git clone git@github.com:TanStack/tanstack.com.git
-git clone git@github.com:TanStack/form.git
-```
-
-> [!NOTE]
-> Your `tanstack` directory should look like this:
->
-> ```
-> tanstack/
->    |
->    +-- form/
->    |
->    +-- tanstack.com/
-> ```
-
-> [!WARNING]
-> Make sure the name of the directory in your local file system matches the name of the project's repo. For example, `tanstack/form` must be cloned into `form` (this is the default) instead of `some-other-name`, because that way, the doc pages won't be found.
-
-3. Enter the `tanstack/tanstack.com` directory, install the dependencies and run the app in dev mode:
-
-```sh
-cd tanstack.com
-pnpm i
-# The app will run on https://localhost:3000 by default
-pnpm dev
-```
-
-4. Now you can visit http://localhost:3000/form/latest/docs/overview in the browser and see the changes you make in `tanstack/form/docs`.
-
-> [!NOTE]
-> The updated pages need to be manually reloaded in the browser.
-
-> [!WARNING]
-> You will need to update the `docs/config.json` file (in the project's repo) if you add a new doc page!
