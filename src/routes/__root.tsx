@@ -107,7 +107,7 @@ useEffect(() => {
 }, []);
 
   return (
-    <html>
+    <html className="dark">
       <head>
         <HeadContent />
       </head>
