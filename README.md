@@ -8,7 +8,7 @@ Let's assume that data from the entity list request matches the data from the en
 Optimistic navigation has a positive impact on user engagement, SEO, and hosting bills. But to implement it, tight cooperation between the backend, frontend, and design teams is required.
 
 Read that interactive article to find out more about optimistic navigation!
-- [Optimistic Navigation: Creating the Illusion of Performance](https://akhmadshin.dev/blog/optimistic-navigation-performance-illusion/)
+- [Optimistic Navigation: Boost Perceived Performance](https://akhmadshin.dev/blog/optimistic-navigation-boost-perceived-performance)
 
 ## Development
 
