@@ -10,6 +10,7 @@ Optimistic navigation has a positive impact on user engagement, SEO, and hosting
 Read that interactive article to find out more about optimistic navigation!
 - [Optimistic Navigation: Creating the Illusion of Performance](https://akhmadshin.dev/blog/optimistic-navigation-performance-illusion/)
 
+
 ## Development
 
 From your terminal:
