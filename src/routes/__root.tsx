@@ -17,6 +17,7 @@ import { seo } from '~/utils/seo'
 import { useEffect } from 'react';
 import { handleHistoryTransitionStarted, handleRouteChangeComplete } from 'view-transition-name-handler';
 import { Header } from '~/components/Header';
+import {requestIdleCallback} from "~/lib/request-idle-callback";
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient
@@ -98,7 +99,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   }, []);
 
 useEffect(() => {
-  requestIdleCallback(() => {
+    requestIdleCallback(() => {
     Promise.all([
       router.loadRouteChunk(router.routesByPath['/']),
       router.loadRouteChunk(router.routesByPath['/blog/$postId']),

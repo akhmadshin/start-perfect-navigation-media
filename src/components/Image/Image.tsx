@@ -3,6 +3,7 @@ import { Component } from '~/types/general';
 import { createPngDataUri } from './createPngDataUri';
 import { NextImage } from '~/components/NextImage/NextImage';
 import { ImageProps } from '../NextImage/lib/get-img-props';
+import {requestIdleCallback} from "~/lib/request-idle-callback";
 
 type Props = Omit<ImageProps, 'alt'> & {
   thumbhash: string;
