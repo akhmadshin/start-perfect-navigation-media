@@ -8,15 +8,11 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createServerRootRoute } from '@tanstack/react-start/server'
-
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogPostIdRouteImport } from './routes/blog.$postId'
-import { ServerRoute as ApiPostsServerRouteImport } from './routes/api/posts'
-import { ServerRoute as ApiPostsIdServerRouteImport } from './routes/api/posts.$id'
-
-const rootServerRouteImport = createServerRootRoute()
+import { Route as ApiPostsRouteImport } from './routes/api/posts'
+import { Route as ApiPostsIdRouteImport } from './routes/api/posts.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,65 +24,48 @@ const BlogPostIdRoute = BlogPostIdRouteImport.update({
   path: '/blog/$postId',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPostsServerRoute = ApiPostsServerRouteImport.update({
+const ApiPostsRoute = ApiPostsRouteImport.update({
   id: '/api/posts',
   path: '/api/posts',
-  getParentRoute: () => rootServerRouteImport,
+  getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPostsIdServerRoute = ApiPostsIdServerRouteImport.update({
+const ApiPostsIdRoute = ApiPostsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
-  getParentRoute: () => ApiPostsServerRoute,
+  getParentRoute: () => ApiPostsRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/api/posts': typeof ApiPostsRouteWithChildren
   '/blog/$postId': typeof BlogPostIdRoute
+  '/api/posts/$id': typeof ApiPostsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/api/posts': typeof ApiPostsRouteWithChildren
   '/blog/$postId': typeof BlogPostIdRoute
+  '/api/posts/$id': typeof ApiPostsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/api/posts': typeof ApiPostsRouteWithChildren
   '/blog/$postId': typeof BlogPostIdRoute
+  '/api/posts/$id': typeof ApiPostsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/blog/$postId'
+  fullPaths: '/' | '/api/posts' | '/blog/$postId' | '/api/posts/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/blog/$postId'
-  id: '__root__' | '/' | '/blog/$postId'
+  to: '/' | '/api/posts' | '/blog/$postId' | '/api/posts/$id'
+  id: '__root__' | '/' | '/api/posts' | '/blog/$postId' | '/api/posts/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApiPostsRoute: typeof ApiPostsRouteWithChildren
   BlogPostIdRoute: typeof BlogPostIdRoute
-}
-export interface FileServerRoutesByFullPath {
-  '/api/posts': typeof ApiPostsServerRouteWithChildren
-  '/api/posts/$id': typeof ApiPostsIdServerRoute
-}
-export interface FileServerRoutesByTo {
-  '/api/posts': typeof ApiPostsServerRouteWithChildren
-  '/api/posts/$id': typeof ApiPostsIdServerRoute
-}
-export interface FileServerRoutesById {
-  __root__: typeof rootServerRouteImport
-  '/api/posts': typeof ApiPostsServerRouteWithChildren
-  '/api/posts/$id': typeof ApiPostsIdServerRoute
-}
-export interface FileServerRouteTypes {
-  fileServerRoutesByFullPath: FileServerRoutesByFullPath
-  fullPaths: '/api/posts' | '/api/posts/$id'
-  fileServerRoutesByTo: FileServerRoutesByTo
-  to: '/api/posts' | '/api/posts/$id'
-  id: '__root__' | '/api/posts' | '/api/posts/$id'
-  fileServerRoutesById: FileServerRoutesById
-}
-export interface RootServerRouteChildren {
-  ApiPostsServerRoute: typeof ApiPostsServerRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -105,49 +84,49 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogPostIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-  }
-}
-declare module '@tanstack/react-start/server' {
-  interface ServerFileRoutesByPath {
     '/api/posts': {
       id: '/api/posts'
       path: '/api/posts'
       fullPath: '/api/posts'
-      preLoaderRoute: typeof ApiPostsServerRouteImport
-      parentRoute: typeof rootServerRouteImport
+      preLoaderRoute: typeof ApiPostsRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/api/posts/$id': {
       id: '/api/posts/$id'
       path: '/$id'
       fullPath: '/api/posts/$id'
-      preLoaderRoute: typeof ApiPostsIdServerRouteImport
-      parentRoute: typeof ApiPostsServerRoute
+      preLoaderRoute: typeof ApiPostsIdRouteImport
+      parentRoute: typeof ApiPostsRoute
     }
   }
 }
 
-interface ApiPostsServerRouteChildren {
-  ApiPostsIdServerRoute: typeof ApiPostsIdServerRoute
+interface ApiPostsRouteChildren {
+  ApiPostsIdRoute: typeof ApiPostsIdRoute
 }
 
-const ApiPostsServerRouteChildren: ApiPostsServerRouteChildren = {
-  ApiPostsIdServerRoute: ApiPostsIdServerRoute,
+const ApiPostsRouteChildren: ApiPostsRouteChildren = {
+  ApiPostsIdRoute: ApiPostsIdRoute,
 }
 
-const ApiPostsServerRouteWithChildren = ApiPostsServerRoute._addFileChildren(
-  ApiPostsServerRouteChildren,
+const ApiPostsRouteWithChildren = ApiPostsRoute._addFileChildren(
+  ApiPostsRouteChildren,
 )
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApiPostsRoute: ApiPostsRouteWithChildren,
   BlogPostIdRoute: BlogPostIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-const rootServerRouteChildren: RootServerRouteChildren = {
-  ApiPostsServerRoute: ApiPostsServerRouteWithChildren,
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
 }
-export const serverRouteTree = rootServerRouteImport
-  ._addFileChildren(rootServerRouteChildren)
-  ._addFileTypes<FileServerRouteTypes>()

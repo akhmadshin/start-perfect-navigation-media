@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { APIResponseData, ArticleItem, ArticleListItem } from '~/types/api';
 import { RelatedArticles } from './RelatedArticles';
 import { Container } from '~/components/Container';
@@ -6,6 +6,7 @@ import { RichText } from '~/components/RichText';
 import { Component } from '~/types/general';
 import { ArticlePageContentSkeleton } from './ArticlePageContentSkeleton';
 import type { BlocksContent } from '@strapi/blocks-react-renderer';
+import { cn } from '~/lib/utils';
 
 interface Props {
   article: APIResponseData<ArticleListItem | ArticleItem>;

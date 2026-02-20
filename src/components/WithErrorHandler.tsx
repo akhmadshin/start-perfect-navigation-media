@@ -10,7 +10,7 @@ interface Props {
 export const WithErrorHandler: ParentComponent<Props> = ({ errorComponent: ErrorComponent, notFoundComponent: NotFoundComponent, error, children }) => {
   if (error) {
     if ('isNotFound' in error && error.isNotFound) {
-      return NotFoundComponent ? <NotFoundComponent data={{}} /> : null;
+      return NotFoundComponent ? <NotFoundComponent data={{}} isNotFound routeId="__root__" /> : null;
     }
     return ErrorComponent ? <ErrorComponent reset={() => {}} error={error} /> : null;
   }
