@@ -27,12 +27,12 @@ export const ArticlePageFulfilled: Component<Props> = ({ article, isPlaceholderD
     <>
       {seo && (
         <Meta
-          isArticle
+          // isArticle
           title={seo.title}
           description={seo.description}
           canonical={`/blog/${slug}/`}
           type="article"
-          image={coverAttributes}
+          // image={coverAttributes}
         />
       )}
       <article className="flex flex-col dark:text-gray-50">
