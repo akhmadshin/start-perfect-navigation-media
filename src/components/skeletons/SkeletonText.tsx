@@ -1,3 +1,4 @@
+import React from 'react';
 import { Component } from '~/types/general';
 
 interface Props {
@@ -15,51 +16,10 @@ export const SkeletonText: Component<Props> = (
 ) => {
   const style = {
     width: width ?? 'auto',
-    'animationFillMode': 'backwards',
-    'animationDelay': '150ms',
+    animationFillMode: 'backwards',
+    animationDelay: '150ms',
   }
   const skeletonClassName = `${className} bg-zinc-200 dark:bg-zinc-400 animate-pulse`;
-  if (as === 'span') {
-    return (
-      <span
-        className={skeletonClassName}
-        style={style}
-      >
-        &nbsp;
-      </span>
-    )
-  }
-  if (as === 'h1') {
-    return (
-      <h1
-        className={skeletonClassName}
-        style={style}
-      >
-        &nbsp;
-      </h1>
-    )
-  }
-  if (as === 'h2') {
-    return (
-      <h2
-        className={skeletonClassName}
-        style={style}
-      >
-        &nbsp;
-      </h2>
-    )
-  }
-  if (as === 'h3') {
-    return (
-      <h3
-        className={skeletonClassName}
-        style={style}
-      >
-        &nbsp;
-      </h3>
-    )
-  }
-  return (
-    <></>
-  );
+  const Tag = as as React.ElementType;
+  return <Tag className={skeletonClassName} style={style}>&nbsp;</Tag>;
 };

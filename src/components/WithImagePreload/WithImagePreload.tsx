@@ -1,5 +1,6 @@
-import { FC, useState, PropsWithChildren } from 'react';
+import { useState } from 'react';
 import { ImagePreload } from './ImagePreload';
+import { ParentComponent } from '~/types/general';
 
 interface Props {
   size: string;
@@ -7,13 +8,12 @@ interface Props {
   height: number;
   width: number;
 }
-type ParentComponent<T = unknown> = FC<PropsWithChildren<T>>
 
 export const WithImagePreload: ParentComponent<Props> = ({ size, src, height, width, children }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
-    if (size && !isHovered) {
+    if (!isHovered) {
       setIsHovered(true);
     }
   }

@@ -16,8 +16,8 @@ export const ArticleAnchors: Component<Props> = ({ headings, isPlaceholderData }
     <nav className="prose prose-slate lg:prose-xl dark:prose-invert max-w-none">
       <h2>Table of contents:</h2>
       <ul>
-        {Array.from(headings).map(({title, hash}, index) => (
-          <li key={index}>
+        {headings.map(({title, hash}) => (
+          <li key={hash}>
             <Link
               to={"/blog/$postId"}
               params={{ postId: postId }}

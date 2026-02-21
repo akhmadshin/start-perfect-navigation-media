@@ -1,7 +1,6 @@
 /// <reference types="vite/client" />
 import {
   HeadContent,
-  Link,
   Outlet,
   Scripts,
   createRootRouteWithContext, useRouter,
@@ -83,19 +82,21 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   const router = useRouter()
 
   useEffect(() => {
-    router.subscribe('onLoad', () => {
+    const unsubLoad = router.subscribe('onLoad', () => {
       if (router.history.location.state.key) {
         handleRouteChangeComplete(router.history.location.state.key);
       }
-    })
+    });
 
-    router.history.subscribe((prop) => {
+    const unsubHistory = router.history.subscribe((prop) => {
       if (prop.action.type === 'FORWARD' || prop.action.type === 'BACK') {
         if (prop.location.state.key) {
           handleHistoryTransitionStarted(prop.location.state.key);
         }
       }
-    })
+    });
+
+    return () => { unsubLoad(); unsubHistory(); };
   }, []);
 
 useEffect(() => {

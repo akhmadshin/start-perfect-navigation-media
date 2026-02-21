@@ -4,12 +4,6 @@ interface Props {
   title: string;
   canonical?: string;
   description?: string;
-  isArticle?: boolean;
-  image?: {
-    url: string;
-    height: number;
-    width: number;
-  };
   type?: string;
 }
 
