@@ -5,7 +5,6 @@ import React, {
   useMemo,
   useState,
   forwardRef,
-  use,
 } from 'react'
 import ReactDOM from 'react-dom'
 import { getImgProps } from './lib/get-img-props'
@@ -18,9 +17,9 @@ import type {
 } from './lib/get-img-props'
 import {
   defaultLoader,
+  imageConfigDefault,
   ImageLoaderProps,
 } from './lib/image-config'
-import { imageConfigDefault } from './lib/image-config'
 import { warnOnce } from './lib/utils/warn-once'
 
 import { useMergedRef } from './use-merged-ref'
@@ -150,18 +149,12 @@ function handleLoading(
   })
 }
 
+// React 19+ requires camelCase fetchPriority to avoid "Warning: Invalid DOM property".
+// See https://github.com/facebook/react/pull/25927
 function getDynamicProps(
   fetchPriority?: string
 ): Record<string, string | undefined> {
-  if (Boolean(use)) {
-    // In React 19.0.0 or newer, we must use camelCase
-    // prop to avoid "Warning: Invalid DOM property".
-    // See https://github.com/facebook/react/pull/25927
-    return { fetchPriority }
-  }
-  // In React 18.2.0 or older, we must use lowercase prop
-  // to avoid "Warning: Invalid DOM property".
-  return { fetchpriority: fetchPriority }
+  return { fetchPriority }
 }
 
 const ImageElement = forwardRef<HTMLImageElement | null, ImageElementProps>(
@@ -305,16 +298,15 @@ function ImagePreload({
     ...getDynamicProps(imgAttributes.fetchPriority),
   }
 
+  // See https://github.com/facebook/react/pull/26940
   if (ReactDOM.preload) {
-    // See https://github.com/facebook/react/pull/26940
-    ReactDOM.preload(
-      imgAttributes.src,
-      // @ts-expect-error TODO: upgrade to `@types/react-dom@18.3.x`
-      opts
-    )
-    return null
+    // @ts-expect-error TODO: upgrade to `@types/react-dom@18.3.x`
+    ReactDOM.preload(imgAttributes.src, opts)
   }
+  return null
 }
+
+ImageElement.displayName = 'ImageElement'
 
 /**
  * The `Image` component is used to optimize images.
@@ -350,7 +342,7 @@ export const NextImage = forwardRef<HTMLImageElement | null, ImageProps>(
 
     const { props: imgAttributes, meta: imgMeta } = getImgProps({
       ...props,
-      loader: ({ src, width }: ImageLoaderProps) => defaultLoader({ src, width }),
+      loader: defaultLoader,
     }, {
       imgConf: config,
       blurComplete,
@@ -359,25 +351,19 @@ export const NextImage = forwardRef<HTMLImageElement | null, ImageProps>(
 
     return (
       <>
-        {
-          <ImageElement
-            {...imgAttributes}
-            unoptimized={imgMeta.unoptimized}
-            placeholder={imgMeta.placeholder}
-            fill={imgMeta.fill}
-            onLoadRef={onLoadRef}
-            onLoadingCompleteRef={onLoadingCompleteRef}
-            setBlurComplete={setBlurComplete}
-            setShowAltText={setShowAltText}
-            sizesInput={props.sizes}
-            ref={forwardedRef}
-          />
-        }
-        {imgMeta.priority ? (
-          <ImagePreload
-            imgAttributes={imgAttributes}
-          />
-        ) : null}
+        <ImageElement
+          {...imgAttributes}
+          unoptimized={imgMeta.unoptimized}
+          placeholder={imgMeta.placeholder}
+          fill={imgMeta.fill}
+          onLoadRef={onLoadRef}
+          onLoadingCompleteRef={onLoadingCompleteRef}
+          setBlurComplete={setBlurComplete}
+          setShowAltText={setShowAltText}
+          sizesInput={props.sizes}
+          ref={forwardedRef}
+        />
+        {imgMeta.priority ? <ImagePreload imgAttributes={imgAttributes} /> : null}
       </>
     )
   }
