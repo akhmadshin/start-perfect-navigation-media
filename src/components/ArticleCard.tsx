@@ -33,7 +33,6 @@ export const ArticleCard: React.FC<Props> = ({ article, priority }) => {
         <Link
           to={"/blog/$postId"}
           params={{ postId: articleAttributes.slug }}
-          placeholderData={article}
         >
           <article className="flex flex-col items-start justify-between">
             <div

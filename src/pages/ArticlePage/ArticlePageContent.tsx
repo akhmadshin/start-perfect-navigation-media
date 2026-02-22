@@ -1,12 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { APIResponseData, ArticleItem, ArticleListItem } from '~/types/api';
-import { RelatedArticles } from './RelatedArticles';
 import { Container } from '~/components/Container';
 import { RichText } from '~/components/RichText';
 import { Component } from '~/types/general';
 import { ArticlePageContentSkeleton } from './ArticlePageContentSkeleton';
 import type { BlocksContent } from '@strapi/blocks-react-renderer';
-import { cn } from '~/lib/utils';
 
 interface Props {
   article: APIResponseData<ArticleListItem | ArticleItem>;
@@ -17,11 +15,6 @@ export const ArticlePageContent: Component<Props> = ({ article }) => {
   let content: BlocksContent | undefined;
   if ('content' in articleAttributes) {
     content = articleAttributes.content;
-  }
-
-  let relatedArticles: APIResponseData<ArticleListItem>[] = [];
-  if ('relatedArticles' in articleAttributes) {
-    relatedArticles = articleAttributes.relatedArticles;
   }
 
   const ref = useRef<HTMLDivElement>(null);
@@ -46,7 +39,6 @@ export const ArticlePageContent: Component<Props> = ({ article }) => {
       ref={ref}
       className={"transition-opacity ease-linear duration-700 opacity-0"}
     >
-      <RelatedArticles articles={relatedArticles} />
       <Container>
         <RichText content={content} />
       </Container>

@@ -1,8 +1,8 @@
 import { Route } from '~/routes/blog.$postId';
-import { queryOptions, useQuery } from '@tanstack/react-query';
+import { QueryClient, queryOptions, useQuery } from '@tanstack/react-query';
 import axios from 'redaxios';
-import { getPlaceholderData } from '~/singletones/placeholderData';
-import { APIResponseData, ArticleItem, ArticleListItem } from '~/types/api';
+import { APIResponseData, ArticleItem, ArticleListApi, ArticleListItem } from '~/types/api';
+import { useQueryClient } from '@tanstack/react-query';
 
 export const fetchPost = async (id: string) => {
   const slugInt = parseInt(id.match(/\d+/)![0]) ?? 0;
@@ -10,22 +10,28 @@ export const fetchPost = async (id: string) => {
   return post.data;
 }
 
-export const blogItemPageOptions = (postId: string, placeholderData?: APIResponseData<ArticleListItem>) =>
+export const blogItemPageOptions = (postId: string, queryClient?: QueryClient) =>
   queryOptions<APIResponseData<ArticleItem | ArticleListItem>, Error & { isNotFound: boolean }>({
-    queryKey: ['blog', postId],
+    queryKey: ["blogList", postId],
     retry: 0,
     staleTime: Infinity,
     queryFn: () => fetchPost(postId),
-    placeholderData,
+    placeholderData: () => {
+      if (!queryClient) {
+        return;
+      }
+      const listData = queryClient.getQueryData(["blogList"]) as ArticleListApi;
+      return listData?.data.find((item) => item.attributes.slug === postId);
+    },
   })
 
 export const useBlogItemPageData = () => {
-  const placeholderData = getPlaceholderData() as APIResponseData<ArticleListItem>;
+  const queryClient = useQueryClient();
   const { postId } = Route.useParams()
   const queryData = useQuery(
     blogItemPageOptions(
       postId,
-      placeholderData,
+      queryClient,
     ),
   );
   return queryData;

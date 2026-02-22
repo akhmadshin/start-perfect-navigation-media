@@ -1,6 +1,5 @@
 import React, { PropsWithChildren } from 'react';
 import { Link as TanstackLink, LinkProps, useRouterState } from '@tanstack/react-router';
-import { setPlaceholderData } from '~/singletones/placeholderData';
 import { handleTransitionStarted } from 'view-transition-name-handler';
 
 type Props = LinkProps & React.AnchorHTMLAttributes<HTMLAnchorElement> & {
@@ -14,8 +13,6 @@ export const Link: React.FC<PropsWithChildren<Props>> = ({ children, onClick, pl
     if (onClick) {
       onClick(e);
     }
-
-    setPlaceholderData(placeholderData);
 
     if (!router.location.state.key) {
       return;
